@@ -796,77 +796,137 @@ def mostrar_dashboard_estudiante():
         mostrar_info_privacidad()
 
 def mostrar_chatbot():
-    st.title("💬 Asistente Virtual Escolar")
+    st.title("Asistente Virtual Escolar")
     st.markdown("Pregúntame sobre notas, asistencias, certificados, calendario y más.")
-    
+
+    # Contenedor del historial del chat
     chat_container = st.container()
-    
+
     with chat_container:
         for mensaje in st.session_state.chat_history:
             if mensaje["role"] == "user":
+                # Mensaje del usuario → derecha, verde tipo WhatsApp
                 st.markdown(f"""
-                <div style="background-color: #dcf8c6; padding: 10px; border-radius: 10px; margin: 5px 0; text-align: right;">
+                <div style="
+                    background: linear-gradient(135deg, #25d366, #128c7e);
+                    color: white;
+                    padding: 12px 18px;
+                    border-radius: 20px;
+                    margin: 12px 0;
+                    max-width: 75%;
+                    margin-left: auto;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                    font-size: 15px;
+                ">
                     <strong>Tú:</strong> {mensaje["content"]}
                 </div>
                 """, unsafe_allow_html=True)
+
             else:
-                if isinstance(mensaje["content"], str):
+                # Mensaje del asistente → izquierda
+                if isinstance(mensaje["content"], str) and "download=" in mensaje["content"]:
+                    # Caso especial: enlace de descarga del certificado
                     st.markdown(f"""
-                    <div style="background-color: #f1f0f0; padding: 10px; border-radius: 10px; margin: 5px 0;">
-                        <strong>🤖 Asistente:</strong><br>{mensaje["content"]}
+                    <div style="
+                        background-color: #2c3e50;
+                        color: #ecf0f1;
+                        padding: 16px 20px;
+                        border-radius: 20px;
+                        margin: 12px 0;
+                        max-width: 85%;
+                        border-left: 5px solid #3498db;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+                    ">
+                        <strong style="color:#3498db;">Asistente:</strong><br><br>
+                        {mensaje["content"]}
                     </div>
                     """, unsafe_allow_html=True)
                 else:
-                    st.markdown(mensaje["content"], unsafe_allow_html=True)
-    
+                    # Mensaje normal del asistente
+                    st.markdown(f"""
+                    <div style="
+                        background-color: #2c3e50;
+                        color: #ecf0f1;
+                        padding: 14px 18px;
+                        border-radius: 20px;
+                        margin: 12px 0;
+                        max-width: 85%;
+                        border-left: 5px solid #2ecc71;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+                        line-height: 1.5;
+                        font-size: 15px;
+                    ">
+                        <strong style="color:#2ecc71;">Asistente:</strong><br><br>
+                        {mensaje["content"]}
+                    </div>
+                    """, unsafe_allow_html=True)
+
+        # Scroll automático al final (opcional pero muy útil)
+        js = '''
+        <script>
+            const container = window.parent.document.querySelector(".main");
+            container.scrollTop = container.scrollHeight;
+        </script>
+        '''
+        st.components.v1.html(js, height=0)
+
     st.markdown("---")
-    
+
+    # Botones rápidos
     col1, col2, col3, col4 = st.columns(4)
-    
     with col1:
-        if st.button("📅 Calendario"):
+        if st.button("Calendario", use_container_width=True):
             pregunta = "calendario académico"
             respuesta = procesar_pregunta(pregunta)
             st.session_state.chat_history.append({"role": "user", "content": pregunta})
             st.session_state.chat_history.append({"role": "assistant", "content": respuesta})
             st.rerun()
-    
+
     with col2:
-        if st.button("⏰ Horarios"):
+        if st.button("Horarios", use_container_width=True):
             pregunta = "horarios"
             respuesta = procesar_pregunta(pregunta)
             st.session_state.chat_history.append({"role": "user", "content": pregunta})
             st.session_state.chat_history.append({"role": "assistant", "content": respuesta})
             st.rerun()
-    
+
     with col3:
-        if st.button("📖 Tutorías"):
+        if st.button("Tutorías", use_container_width=True):
             pregunta = "tutoria refuerzo"
             respuesta = procesar_pregunta(pregunta)
             st.session_state.chat_history.append({"role": "user", "content": pregunta})
             st.session_state.chat_history.append({"role": "assistant", "content": respuesta})
             st.rerun()
-    
+
     with col4:
-        if st.button("📊 Dashboard"):
+        if st.button("Dashboard", use_container_width=True):
             pregunta = "dashboard resumen"
             respuesta = procesar_pregunta(pregunta)
             st.session_state.chat_history.append({"role": "user", "content": pregunta})
             st.session_state.chat_history.append({"role": "assistant", "content": respuesta})
             st.rerun()
-    
-    pregunta_usuario = st.text_input("✍️ Escribe tu pregunta:", key="chat_input", placeholder="Ej: ¿Cuáles son mis notas?")
-    
-    if st.button("Enviar", type="primary"):
-        if pregunta_usuario:
-            respuesta = procesar_pregunta(pregunta_usuario)
-            st.session_state.chat_history.append({"role": "user", "content": pregunta_usuario})
-            st.session_state.chat_history.append({"role": "assistant", "content": respuesta})
+
+    # Campo de texto y botones
+    pregunta_usuario = st.text_input(
+        "Escribe tu pregunta aquí:",
+        key="chat_input",
+        placeholder="Ej: ¿Cuáles son mis notas?",
+        label_visibility="collapsed"
+    )
+
+    col_enviar, col_limpiar = st.columns([5, 1])
+    with col_enviar:
+        if st.button("Enviar", type="primary", use_container_width=True):
+            if pregunta_usuario.strip():
+                respuesta = procesar_pregunta(pregunta_usuario)
+                st.session_state.chat_history.append({"role": "user", "content": pregunta_usuario})
+                st.session_state.chat_history.append({"role": "assistant", "content": respuesta})
+                st.rerun()
+
+    with col_limpiar:
+        if st.button("Limpiar", use_container_width=True):
+            st.session_state.chat_history = []
             st.rerun()
-    
-    if st.button("🗑️ Limpiar conversación"):
-        st.session_state.chat_history = []
-        st.rerun()
 
 def mostrar_notas():
     st.title("📊 Mis Notas y Calificaciones")
