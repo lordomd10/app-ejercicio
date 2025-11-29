@@ -8,6 +8,7 @@ import base64
 import re
 import plotly.graph_objects as go
 import plotly.express as px
+import streamlit.components.v1 as components
 
 # ============================================
 # CONFIGURACIÓN INICIAL
@@ -656,92 +657,124 @@ Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aq
 # PÁGINA DE PRIVACIDAD
 # ============================================
 def mostrar_aviso_privacidad():
-    st.markdown("""
-    <style>
-    body, .stApp {background: #000 !important;}
-    .fondo-privacidad {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-    }
-    .tarjeta {
-        background: white;
-        border-radius: 28px;
-        padding: 50px 40px;
-        width: 90%;
-        max-width: 720px;
-        box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-        text-align: center;
-    }
-    .robot {
-        width: 140px;
-        margin: 20px 0 30px 0;
-    }
-    </style>
-
-    <div class="fondo-privacidad">
-        <div class="tarjeta">
-            <h1 style="color:#667eea; font-size:3rem; font-weight:900; margin:0;">
-                Portal Estudiantil
-            </h1>
-            <p style="color:#555; font-size:1.4rem; margin:10px 0 30px;">
-                Asistente Virtual Escolar
+    html_code = """
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Política de Privacidad</title>
+        <style>
+            * { margin:0; padding:0; box-sizing:border-box; }
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #333;
+            }
+            .container {
+                background: white;
+                border-radius: 30px;
+                padding: 50px 40px;
+                width: 90%;
+                max-width: 720px;
+                box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+                text-align: center;
+            }
+            h1 { color: #667eea; font-size: 3.2rem; font-weight: 900; margin-bottom: 10px; }
+            .subtitle { font-size: 1.4rem; color: #555; margin: 15px 0 35px; }
+            .robot { width: 140px; margin: 20px 0 30px; }
+            p { line-height: 1.8; text-align: justify; font-size: 1.1rem; margin: 20px 0; }
+            .checkbox-label {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin: 50px 0 40px;
+                cursor: pointer;
+            }
+            input[type="checkbox"] {
+                transform: scale(2.2);
+                margin-right: 20px;
+                accent-color: #667eea;
+            }
+            button {
+                background: linear-gradient(45deg, #667eea, #764ba2);
+                color: white;
+                border: none;
+                padding: 18px 70px;
+                border-radius: 50px;
+                font-size: 1.5rem;
+                font-weight: bold;
+                cursor: not-allowed;
+                opacity: 0.5;
+                transition: all 0.3s;
+                box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+            }
+            button.active {
+                opacity: 1;
+                cursor: pointer;
+            }
+            button.active:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 15px 40px rgba(102,126,234,0.6);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Portal Estudiantil</h1>
+            <p class="subtitle">Asistente Virtual del Colegio</p>
+            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" class="robot" alt="Robot">
+            
+            <h2 style="margin:30px 0 20px; color:#333;">Política de Privacidad</h2>
+            <p>
+                Para usar el sistema necesitamos que aceptes nuestra política de tratamiento de datos personales 
+                conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.<br><br>
+                Tus datos (nombre, cédula, notas y consultas) serán usados únicamente para gestión académica, 
+                generación de certificados y comunicación institucional.<br><br>
+                <strong>No compartimos tus datos con terceros</strong> y puedes ejercer tus derechos en cualquier momento.
             </p>
 
-            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" class="robot">
+            <label class="checkbox-label">
+                <input type="checkbox"checkbox" id="acepto">
+                <span>He leído y acepto la política de privacidad</span>
+            </label>
 
-            <h2 style="color:#333; margin:30px 0 20px;">Política de Privacidad</h2>
-            <div style="text-align:justify; line-height:1.8; color:#444; font-size:1.1rem;">
-                Para usar el sistema necesitamos que aceptes nuestra política de tratamiento de datos conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.<br><br>
-                Tus datos solo se usarán para gestión académica, certificados y comunicación institucional. 
-                <strong>No los compartimos con terceros</strong>.
-            </div>
-
-            <div style="margin:50px 0 40px;">
-                <label style="font-size:1.5rem; font-weight:bold; cursor:pointer;">
-                    <input type="checkbox" id="aceptoCheck" style="transform:scale(2); margin-right:20px; accent-color:#667eea;">
-                    <span style="color:#333;">He leído y acepto la política de privacidad</span>
-                </label>
-            </div>
-
-            <button id="btnEntrar" disabled style="
-                background: linear-gradient(45deg, #667eea, #764ba2);
-                color:white; border:none; padding:18px 60px;
-                border-radius:50px; font-size:1.4rem; font-weight:bold;
-                cursor:not-allowed; opacity:0.5; box-shadow:0 10px 30px rgba(102,126,234,0.4);
-            ">
-                Entrar al Sistema
-            </button>
+            <button id="botonEntrar">Entrar al Sistema</button>
         </div>
-    </div>
 
-    <script>
-    document.getElementById('aceptoCheck').addEventListener('change', function() {
-        const btn = document.getElementById('btnEntrar');
-        if(this.checked) {
-            btn.disabled = false;
-            btn.style.opacity = '1';
-            btn.style.cursor = 'pointer';
-            btn.onclick = () => location.href = '?aceptado=1';
-        } else {
-            btn.disabled = true;
-            btn.style.opacity = '0.5';
-            btn.style.cursor = 'not-allowed';
-            btn.onclick = null;
-        }
-    });
-    </script>
-    """, unsafe_allow_html=True)
+        <script>
+            const checkbox = document.getElementById('acepto');
+            const boton = document.getElementById('botonEntrar');
 
-    # MAGIA: detectar si el usuario ya aceptó desde la URL
-    query_params = st.query_params
-    if query_params.get("aceptado") == ["1"]:
-        st.session_state.privacy_accepted = True
-        st.rerun()
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    boton.classList.add('active');
+                    boton.onclick = function() {
+                        window.parent.location.search = '?privacidad=aceptada';
+                    };
+                } else {
+                    boton.classList.remove('active');
+                    boton.onclick = null;
+                }
+            });
+        </script>
+    </body>
+    </html>
+    """
+
+    components.html(html_code, height=1000, scrolling=True)
+
+    # Detectamos si ya aceptó
+    if st.query_params := st.query_params.to_dict():
+        if st.query_params.get("privacidad") == "aceptada":
+            st.session_state.privacy_accepted = True
+            st.rerun()
 # ============================================
 # PÁGINA DE LOGIN
 # ============================================
