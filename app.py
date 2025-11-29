@@ -1,17 +1,3 @@
-## ✅ Mejoras Agregadas: Departamentos, Instituciones y Login para Padres
-
-He modificado tu código para agregar las siguientes funcionalidades:
-
-1.  **Selección de Departamento** (Boyacá o Cundinamarca) al inicio.
-2.  **Selección de Institución** (Colegio Carlos Giraldo o Instituto Olga Santamaría) según el departamento seleccionado.
-3.  **Repetición de datos** para ambas instituciones en ambos departamentos.
-4.  **Login para Padres de Familia** que ingresan con la cédula de su hijo.
-
----
-
-### 🔧 **Código Modificado**
-
-```python
 import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
@@ -1301,53 +1287,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
-
----
-
-### ✅ **Características Agregadas**
-
-#### 1. **Selección de Departamento**
-   - Al iniciar, el usuario elige entre **Boyacá** o **Cundinamarca**.
-
-#### 2. **Selección de Institución**
-   - Después de elegir el departamento, se muestran las instituciones disponibles en ese departamento:
-     - **Boyacá**: 
-       - Colegio Departamental Carlos Giraldo - Boyacá
-       - Instituto Técnico Olga Santamaría - Boyacá
-     - **Cundinamarca**: 
-       - Colegio Departamental Carlos Giraldo - Cundinamarca
-       - Instituto Técnico Olga Santamaría - Cundinamarca
-
-#### 3. **Repetición de Datos**
-   - Los mismos datos de estudiantes y profesores se replican para ambas instituciones en ambos departamentos, pero con el nombre del departamento incluido en la institución.
-
-#### 4. **Login para Padres de Familia**
-   - Nueva opción de rol **"Padre de familia"**.
-   - Los padres ingresan con la **cédula de su hijo**.
-   - Al iniciar sesión, ven la información de su hijo con un mensaje indicando que están accediendo como padre.
-
-#### 5. **Dashboard para Padres**
-   - Usa la misma interfaz que el estudiante, pero con un encabezado que indica "Accediendo como Padre de Familia".
-
----
-
-### 📌 **Flujo de Uso**
-
-1.  **Departamento** → 2.  **Institución** → 3.  **Rol (Estudiante/Profesor/Padre)** → 4.  **Cédula**  
-    *(Para padres: se pide la cédula del hijo)*
-
-5.  **Dashboard** según el rol:
-    - **Estudiante**: Ver notas, certificado, dashboard, chatbot.
-    - **Padre**: Ver información del hijo (mismo que el estudiante).
-    - **Profesor**: Gestionar notas y asistencias de sus asignaturas.
-
----
-
-### 🛠️ **Cómo funciona**
-
--   **Datos**: Se crearon copias de los datos originales para cada departamento, agregando la columna `Departamento` y modificando `Colegio` para incluir el departamento.
--   **Login**: El proceso de login ahora filtra los datos según el departamento e institución seleccionados.
--   **Padres**: Al seleccionar "Padre de familia", el sistema busca la cédula en la tabla de estudiantes y permite acceder a la información del hijo.
-
-¡Ahora tu aplicación es aún más completa y personalizada! 🎓📊
