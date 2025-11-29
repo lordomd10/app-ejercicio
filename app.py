@@ -657,83 +657,91 @@ Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aq
 # PÁGINA DE PRIVACIDAD
 # ============================================
 def mostrar_aviso_privacidad():
-    # Fondo bonito con st.markdown (sin componentes externos)
+    # Fondo degradado simple con CSS (solo body, sin fixed)
     st.markdown("""
     <style>
     .stApp {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        background-attachment: fixed;
+        color: white;
     }
-    .privacy-box {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        max-width: 700px;
+    .privacy-title {
+        color: white !important;
+        font-size: 3rem !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .privacy-subtitle {
+        color: #f0f0f0 !important;
+        font-size: 1.4rem !important;
+        text-align: center !important;
+        margin-bottom: 2rem !important;
+    }
+    .privacy-card {
         background: white;
-        border-radius: 30px;
-        padding: 50px 40px;
-        box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+        padding: 3rem;
+        border-radius: 2rem;
+        box-shadow: 0 1rem 3rem rgba(0,0,0,0.3);
+        color: #333 !important;
         text-align: center;
-        z-index: 1000;
+    }
+    .privacy-text {
+        text-align: justify !important;
+        line-height: 1.6 !important;
+        font-size: 1.1rem !important;
+        margin-bottom: 2rem !important;
+        color: #444 !important;
+    }
+    .checkbox-container {
+        text-align: center !important;
+        margin: 2rem 0 !important;
+    }
+    .checkbox-label {
+        font-size: 1.3rem !important;
+        font-weight: bold !important;
+        color: #333 !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown(f"""
-    <div class="privacy-box">
-        <h1 style="color:#667eea; font-size:3.2rem; font-weight:900;">Portal Estudiantil</h1>
-        <p style="font-size:1.4rem; color:#555; margin:15px 0 35px;">Asistente Virtual del Colegio</p>
-        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" width="140">
+    # Contenido principal (nativo de Streamlit)
+    st.markdown('<h1 class="privacy-title">Portal Estudiantil Digital</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="privacy-subtitle">Asistente Virtual del Colegio</p>', unsafe_allow_html=True)
 
-        <h2 style="margin:35px 0 20px; color:#333;">Política de Privacidad</h2>
-        <p style="line-height:1.8; text-align:justify; color:#444;">
-            Para usar el sistema necesitamos que aceptes nuestra política de tratamiento de datos personales 
-            conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.<br><br>
-            Tus datos se usarán solo para gestión académica, certificados y comunicación institucional.
-            <strong>No los compartimos con terceros</strong>.
-        </p>
+    # Robot como emoji (simple y funciona siempre)
+    st.markdown("### 🚀 Bienvenido")
 
-        <div style="margin:50px 0;">
-            <label style="font-size:1.5rem; font-weight:bold;">
-                <input type="checkbox" id="aceptoCheck" style="transform:scale(2.2); margin-right:20px; accent-color:#667eea;">
-                He leído y acepto la política de privacidad
-            </label>
+    with st.container():
+        st.markdown('<div class="privacy-card">', unsafe_allow_html=True)
+        st.markdown('<h2 style="color: #333; margin-bottom: 1.5rem;">Política de Privacidad y Protección de Datos</h2>', unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="privacy-text">
+            Para usar el sistema necesitamos que aceptes nuestra política de tratamiento de datos personales conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.<br><br>
+            Tus datos (nombre, cédula, notas y consultas) serán usados únicamente para:<br>
+            • Gestión académica y generación de certificados<br>
+            • Comunicación institucional<br>
+            • Mejorar tu experiencia en el portal<br><br>
+            <strong>No compartimos tus datos con terceros</strong> y puedes ejercer tus derechos (acceso, actualización, eliminación) en cualquier momento.
         </div>
+        """, unsafe_allow_html=True)
 
-        <button id="btnEntrar" disabled style="
-            background:linear-gradient(45deg,#667eea,#764ba2);
-            color:white; border:none; padding:18px 70px;
-            border-radius:50px; font-size:1.5rem; font-weight:bold;
-            cursor:not-allowed; opacity:0.5; box-shadow:0 10px 30px rgba(102,126,234,0.4);
-        ">
-            Entrar al Sistema
-        </button>
-    </div>
+        # Checkbox nativo (grande y bonito)
+        col1, col2 = st.columns([1, 4])
+        with col1:
+            acepto = st.checkbox("", key="privacy_checkbox", label_visibility="collapsed")
+        with col2:
+            st.markdown('<label class="checkbox-label">He leído y acepto la política de privacidad</label>', unsafe_allow_html=True)
 
-    <script>
-        const check = document.getElementById('aceptoCheck');
-        const btn = document.getElementById('btnEntrar');
-        check.addEventListener('change', function() {{
-            if(this.checked) {{
-                btn.disabled = false;
-                btn.style.opacity = '1';
-                btn.style.cursor = 'pointer';
-                btn.onclick = () => window.location.search = '?ok=1';
-            }} else {{
-                btn.disabled = true;
-                btn.style.opacity = '0.5';
-                btn.style.cursor = 'not-allowed';
-            }}
-        }});
-    </script>
-    """, unsafe_allow_html=True)
+        # Botón nativo (se activa solo si checkbox marcado)
+        if acepto:
+            if st.button("🚀 Entrar al Sistema", type="primary", use_container_width=True):
+                st.session_state.privacy_accepted = True
+                st.rerun()
+        else:
+            st.button("🚀 Entrar al Sistema", type="primary", use_container_width=True, disabled=True)
 
-    # Detectar aceptación
-    if st.query_params.get("ok") == "1":
-        st.session_state.privacy_accepted = True
-        st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
 # ============================================
 # PÁGINA DE LOGIN
 # ============================================
