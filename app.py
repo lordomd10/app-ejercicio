@@ -656,117 +656,113 @@ Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aq
 # PÁGINA DE PRIVACIDAD
 # ============================================
 def mostrar_aviso_privacidad():
-    # === FONDO + ESTILO COMPLETO DE LA PANTALLA DE PRIVACIDAD ===
     st.markdown("""
     <style>
-    .privacy-container {
-        height: 100vh;
-        background: linear-gradient(135deg, rgba(30,60,114,0.95), rgba(42,82,152,0.95)),
+    .privacy-bg {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%),
                     url('https://images.unsplash.com/photo-1535378620166-273708d44e4c?q=80&w=2000') center/cover no-repeat;
+        z-index: -1;
+    }
+    .privacy-overlay {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        backdrop-filter: blur(5px);
         display: flex;
-        flex-direction: column;
-        justify-content: center;
         align-items: center;
-        color: white;
-        text-align: center;
+        justify-content: center;
         padding: 20px;
-        font-family: 'Segoe UI', sans-serif;
     }
-    .privacy-box {
-        background-color: rgba(255,255,255,0.15);
-        backdrop-filter: blur(12px);
-        border-radius: 20px;
-        padding: 40px 30px;
-        width: 90%;
-        max-width: 800px;
-        border: 1px solid rgba(255,255,255,0.2);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    .privacy-card {
+        background: rgba(255,255,255,0.95);
+        border-radius: 25px;
+        padding: 40px;
+        max-width: 750px;
+        width: 100%;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        text-align: center;
+        color: #1e3c72;
     }
-    .privacy-title {
-        font-size: 3rem;
-        font-weight: bold;
-        margin-bottom: 10px;
-        text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    }
-    .privacy-subtitle {
-        font-size: 1.3rem;
-        margin-bottom: 30px;
-        opacity: 0.9;
-    }
-    .robot-img {
-        width: 150px;
-        height: 150px;
-        margin: 20px 0;
+    .robot {
+        width: 120px;
         filter: drop-shadow(0 0 20px #00d4ff);
+        margin: 20px 0;
     }
-    .acepto-checkbox {
-        transform: scale(1.4);
-        margin: 25px 0;
+    .btn-aceptar {
+        background: linear-gradient(45deg, #00d4ff, #0099cc);
+        color: white;
+        padding: 15px 50px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 20px;
+        box-shadow: 0 10px 30px rgba(0,212,255,0.4);
+        transition: all 0.3s;
+    }
+    .btn-aceptar:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(0,212,255,0.6);
     }
     </style>
-    """, unsafe_allow_html=True)
 
-    st.markdown(f"""
-    <div class="privacy-container">
-        <h1 class="privacy-title">Sistema Escolar Interactivo</h1>
-        <p class="privacy-subtitle">Bienvenido al portal estudiantil digital</p>
-        
-        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" class="robot-img" alt="Robot asistente">
-        
-        <div class="privacy-box">
-            <h2>Política de Privacidad y Protección de Datos</h2>
-            <p style="text-align: justify; line-height: 1.8;">
-                Para poder usar el sistema necesitamos que aceptes nuestra política de tratamiento de datos personales, 
-                conforme a la <strong>Ley 1581 de 2012</strong> y el Decreto 1377 de 2013 de Colombia.
-                <br><br>
-                Tus datos (nombre, cédula, notas y consultas) serán usados únicamente para:
-                <ul style="text-align: left; margin: 20px 0;">
-                    <li>Gestión académica y generación de certificados</li>
-                    <li>Comunicación de información institucional</li>
-                    <li>Mejorar tu experiencia en el portal</li>
-                </ul>
-                <strong>No compartimos tus datos con terceros</strong> y puedes ejercer tus derechos 
-                (acceso, actualización, eliminación) en cualquier momento.
-            </p>
+    <div class="privacy-bg"></div>
+    <div class="privacy-overlay">
+        <div class="privacy-card">
+            <h1 style="color:#1e3c72; font-size:2.8rem;">Sistema Escolar Interactivo</h1>
+            <p style="font-size:1.3rem; color:#2c5282;">Portal estudiantil digital</p>
             
-            <div style="margin-top: 30px;">
-                <label style="font-size: 1.2rem;">
-                    <input type="checkbox" id="acepto" class="acepto-checkbox" onclick="
-                        document.getElementById('btn-continuar').disabled = !this.checked;
-                        document.getElementById('btn-continuar').style.opacity = this.checked ? '1' : '0.5';
-                    ">
-                    <strong> He leído y acepto la política de privacidad</strong>
+            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" class="robot" alt="Robot">
+            
+            <h2>Política de Privacidad</h2>
+            <div style="text-align:justify; line-height:1.8; font-size:1.1rem; color:#333;">
+                <p>Para usar el sistema necesitamos que aceptes nuestra política de tratamiento de datos personales conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.</p>
+                <p>Tus datos (nombre, cédula, notas y consultas) se usarán solo para:</p>
+                <ul style="text-align:left; display:inline-block;">
+                    <li>Gestión académica y certificados</li>
+                    <li>Comunicación institucional</li>
+                    <li>Mejorar tu experiencia</li>
+                </ul>
+                <p><strong>No compartimos tus datos con terceros</strong> y puedes ejercer tus derechos (acceso, corrección, eliminación) cuando quieras.</p>
+            </div>
+            
+            <div style="margin:30px 0;">
+                <label style="font-size:1.3rem; font-weight:bold; color:#1e3c72;">
+                    <input type="checkbox" id="acepto" style="transform:scale(1.5); margin-right:15px;">
+                    He leído y acepto la política de privacidad
                 </label>
             </div>
             
-            <button id="btn-continuar" disabled style="
-                background: #00d4ff;
-                color: white;
-                padding: 15px 40px;
-                border: none;
-                border-radius: 50px;
-                font-size: 1.3rem;
-                font-weight: bold;
-                margin-top: 20px;
-                cursor: not-allowed;
-                opacity: 0.5;
-                transition: all 0.3s;
-                box-shadow: 0 8px 20px rgba(0,212,255,0.4);
-            " onclick="window.parent.location.reload()">
+            <button id="btn-continuar" class="btn-aceptar" disabled>
                 Continuar al Sistema
             </button>
         </div>
     </div>
+
+    <script>
+    const checkbox = document.getElementById('acepto');
+    const btn = document.getElementById('btn-continuar');
+    checkbox.addEventListener('change', function() {
+        btn.disabled = !this.checked;
+        btn.style.opacity = this.checked ? '1' : '0.6';
+        btn.style.cursor = this.checked ? 'pointer' : 'not-allowed';
+    });
+    btn.addEventListener('click', function() {
+        if (!btn.disabled) {
+            window.location.href = window.location.href;  // fuerza rerun
+        }
+    });
+    </script>
     """, unsafe_allow_html=True)
 
-    # Lógica del botón real de Streamlit (se activa cuando marcan el checkbox)
-    col1, col2, col3 = st.columns([1,2,1])
-    with col2:
-        placeholder = st.empty()
-        if placeholder.checkbox("He leído y acepto la política de privacidad", key="acepto_real"):
-            if st.button("Continuar al Sistema", type="primary", use_container_width=True):
-                st.session_state.privacy_accepted = True
-                st.rerun()
+    # El botón real de Streamlit (invisible, solo para activar)
+    if st.checkbox("Acepto", key="privacy_check", label_visibility="hidden"):
+        if st.button("Entrar", key="enter_btn", type="primary"):
+            st.session_state.privacy_accepted = True
+            st.rerun()
 
 # ============================================
 # PÁGINA DE LOGIN
