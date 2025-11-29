@@ -897,7 +897,7 @@ def mostrar_dashboard_estudiante():
             st.session_state.chat_history = []
             st.rerun()
     
-    if menu == "💬 Chat Bot":
+    if menu == "💬 Chat Bot IRIS":
         mostrar_chatbot()
     elif menu == "📊 Mis Notas":
         mostrar_notas()
