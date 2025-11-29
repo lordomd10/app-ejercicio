@@ -9,6 +9,15 @@ import re
 import plotly.graph_objects as go
 import plotly.express as px
 import streamlit.components.v1 as components
+import json
+import requests
+from streamlit_lottie import st_lottie
+
+def load_lottie_url(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
 
 # ============================================
 # CONFIGURACIÓN INICIAL
@@ -658,6 +667,9 @@ Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aq
 # ============================================
 def mostrar_aviso_privacidad():
 
+    # --------- CARGAR ANIMACIÓN 3D DE ROBOT ---------
+    robot = load_lottie_url("https://lottie.host/0ba24df5-a785-4d72-aec4-2260ba9dc625/vgI9kTBwWm.json")
+
     # ==============================
     # ESTILOS FUTURISTAS – ROBOT UI
     # ==============================
@@ -672,7 +684,6 @@ def mostrar_aviso_privacidad():
         color: white;
     }
 
-    /* Filtro oscuro para mejorar la lectura */
     .stApp::before {
         content: "";
         position: fixed;
@@ -682,34 +693,31 @@ def mostrar_aviso_privacidad():
         z-index: -1;
     }
 
-    /* Título principal */
     .privacy-title {
         font-size: 3rem;
         font-weight: 900;
         text-align: center;
         color: #00eaff;
         margin-bottom: 0.4rem;
-        text-shadow: 0 0 15px #00eaff;
+        text-shadow: 0 0 20px #00eaff;
         letter-spacing: 2px;
     }
 
-    /* Subtítulo */
     .privacy-subtitle {
         font-size: 1.4rem;
         text-align: center;
         color: #d9faff;
-        margin-bottom: 3rem;
+        margin-bottom: 1rem;
         opacity: 0.85;
     }
 
-    /* Tarjeta tipo “Glass UI” */
     .glass-card {
         background: rgba(255, 255, 255, 0.12);
-        padding: 2.5rem;
+        padding: 2.8rem;
         border-radius: 1.5rem;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.18);
-        box-shadow: 0 0 25px rgba(0, 255, 255, 0.25);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.25);
         animation: fadein 0.9s ease-in-out;
     }
 
@@ -719,20 +727,25 @@ def mostrar_aviso_privacidad():
     }
 
     .privacy-text {
-        color: #eaffff;
+        color: #e6fcff;
         line-height: 1.8;
         font-size: 1.15rem;
         margin-bottom: 2rem;
-        text-shadow: 0 0 8px rgba(0,0,0,0.6);
+        padding: 1.2rem 1.5rem;
+        border-radius: 1rem;
+        background: linear-gradient(135deg, rgba(0,255,255,0.18), rgba(0,120,180,0.15));
+        border: 1px solid rgba(0, 255, 255, 0.25);
+        box-shadow: 0 0 15px rgba(0,255,255,0.15);
+        text-shadow: 0 0 10px rgba(0,0,0,0.6);
     }
 
     .checkbox-label {
         color: #c8ffff;
         font-size: 1.2rem;
         font-weight: 600;
+        margin-left: 0.3rem;
     }
 
-    /* Botón futurista */
     .enter-btn button {
         background: linear-gradient(135deg, #00eaff, #0088ff) !important;
         border: none !important;
@@ -744,27 +757,17 @@ def mostrar_aviso_privacidad():
         font-size: 1.1rem !important;
         padding: 0.8rem !important;
     }
-    .enter-btn button:hover {
-        box-shadow: 0 0 25px #00eaff !important;
-        transform: scale(1.03);
-        transition: 0.2s;
-    }
-
-    .enter-btn button:disabled {
-        background: #777 !important;
-        color: #ccc !important;
-        box-shadow: none !important;
-    }
-
     </style>
     """, unsafe_allow_html=True)
 
     # ==============================
-    # ENCABEZADO
+    # ENCABEZADO + ROBOT ANIMADO
     # ==============================
-    st.markdown('<h1 class="privacy-title">PORTAL ESTUDIANTIL DIGITAL</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="privacy-subtitle">Asistente Virtual Inteligente del Colegio</p>', unsafe_allow_html=True)
-    st.markdown("### 🤖 Sistema IA Activado")
+    st.markdown('<h1 class="privacy-title">ASISTENTE VIRTUAL IRIS</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="privacy-subtitle">Portal Estudiantil Inteligente</p>', unsafe_allow_html=True)
+
+    # ANIMACIÓN 3D DEL ROBOT
+    st_lottie(robot, height=260, key="robot_iris")
 
     # ==============================
     # TARJETA GLASS UI
@@ -777,34 +780,28 @@ def mostrar_aviso_privacidad():
         </h2>
     """, unsafe_allow_html=True)
 
+    # TEXTO HOLOGRÁFICO
     st.markdown("""
-        <div class="privacy-text">
-            Para ingresar al sistema, debes aceptar nuestra política de tratamiento de datos personales
-            conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.<br><br>
+    <div class="privacy-text">
+        Para continuar, debes aceptar nuestra política de tratamiento de datos personales
+        conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.<br><br>
 
-            Tus datos se usan solamente para:<br>
-            • Gestión académica<br>
-            • Generación de certificados<br>
-            • Comunicación con estudiantes y acudientes<br>
-            • Mejorar tu experiencia con inteligencia artificial<br><br>
+        Tus datos se usan solamente para:<br>
+        • <strong>Gestión académica</strong><br>
+        • <strong>Generación de certificados</strong><br>
+        • <strong>Comunicación con estudiantes y acudientes</strong><br>
+        • <strong>Mejorar tu experiencia mediante la Inteligencia Artificial IRIS</strong><br><br>
 
-            <strong>No vendemos ni compartimos tus datos con terceros.</strong>
-        </div>
+        <strong>No vendemos ni compartimos tus datos con terceros.</strong>
+    </div>
     """, unsafe_allow_html=True)
 
-    # ==============================
-    # CHECKBOX
-    # ==============================
     col1, col2 = st.columns([1, 8])
     with col1:
         acepto = st.checkbox("")
-
     with col2:
         st.markdown('<span class="checkbox-label">Acepto la política de privacidad</span>', unsafe_allow_html=True)
 
-    # ==============================
-    # BOTÓN
-    # ==============================
     st.markdown('<div class="enter-btn">', unsafe_allow_html=True)
 
     if acepto:
