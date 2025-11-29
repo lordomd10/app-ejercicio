@@ -6,6 +6,8 @@ from fpdf import FPDF
 import io
 import base64
 import re
+import plotly.graph_objects as go
+import plotly.express as px
 
 # ============================================
 # CONFIGURACIÓN INICIAL
@@ -1003,7 +1005,7 @@ def mostrar_notas():
         
         st.markdown("#### 📈 Gráfico de Rendimiento")
         
-        import plotly.graph_objects as go
+        
         
         fig = go.Figure()
         fig.add_trace(go.Bar(
@@ -1100,7 +1102,7 @@ def mostrar_dashboard_stats():
         'Consultas': list(st.session_state.consultas.values())
     })
     
-    import plotly.express as px
+    
     fig = px.bar(consultas_df, x='Tema', y='Consultas', 
                  title='Frecuencia de Consultas por Tema',
                  color='Consultas',
