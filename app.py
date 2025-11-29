@@ -657,142 +657,165 @@ Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aq
 # PÁGINA DE PRIVACIDAD
 # ============================================
 def mostrar_aviso_privacidad():
+
     # ==============================
-    # ESTILOS MEJORADOS
+    # ESTILOS FUTURISTAS – ROBOT UI
     # ==============================
     st.markdown("""
     <style>
+
+    /* Fondo futurista estilo panel digital */
     .stApp {
-        background: linear-gradient(135deg, #5a73e0 0%, #7b3fa1 100%);
-        color: white;
+        background: url('https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+        background-size: cover;
         font-family: 'Segoe UI', sans-serif;
+        color: white;
     }
 
-    /* Títulos */
+    /* Filtro oscuro para mejorar la lectura */
+    .stApp::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(4px);
+        z-index: -1;
+    }
+
+    /* Título principal */
     .privacy-title {
         font-size: 3rem;
-        font-weight: 800;
+        font-weight: 900;
         text-align: center;
-        color: #ffffff;
-        margin-bottom: 0.2rem;
-        text-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+        color: #00eaff;
+        margin-bottom: 0.4rem;
+        text-shadow: 0 0 15px #00eaff;
+        letter-spacing: 2px;
     }
+
+    /* Subtítulo */
     .privacy-subtitle {
         font-size: 1.4rem;
         text-align: center;
-        color: #f2f2f2;
-        margin-bottom: 2.2rem;
+        color: #d9faff;
+        margin-bottom: 3rem;
+        opacity: 0.85;
     }
 
-    /* Tarjeta principal */
-    .privacy-card {
-        background: #ffffff;
-        padding: 3rem;
-        border-radius: 1.6rem;
-        box-shadow: 0 1rem 2.5rem rgba(0,0,0,0.25);
-        animation: fadeIn 0.8s ease-in-out;
+    /* Tarjeta tipo “Glass UI” */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.12);
+        padding: 2.5rem;
+        border-radius: 1.5rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.25);
+        animation: fadein 0.9s ease-in-out;
     }
 
-    /* Animación suave */
-    @keyframes fadeIn {
-        from {opacity: 0; transform: translateY(10px);}
+    @keyframes fadein {
+        from {opacity: 0; transform: translateY(15px);}
         to {opacity: 1; transform: translateY(0);}
     }
 
-    /* Cuerpo del texto */
     .privacy-text {
-        text-align: justify;
+        color: #eaffff;
+        line-height: 1.8;
         font-size: 1.15rem;
-        line-height: 1.7;
         margin-bottom: 2rem;
-        color: #333333;
+        text-shadow: 0 0 8px rgba(0,0,0,0.6);
     }
 
-    /* Checkbox */
     .checkbox-label {
+        color: #c8ffff;
         font-size: 1.2rem;
         font-weight: 600;
-        color: #333;
-        margin-left: 0.5rem;
-        display: flex;
-        align-items: center;
     }
 
-    /* Botón personalizado */
+    /* Botón futurista */
     .enter-btn button {
-        background: linear-gradient(135deg, #5a73e0, #7b3fa1) !important;
-        color: white !important;
-        font-size: 1.2rem !important;
-        padding: 0.8rem !important;
+        background: linear-gradient(135deg, #00eaff, #0088ff) !important;
+        border: none !important;
+        color: black !important;
+        font-weight: 800 !important;
+        letter-spacing: 1px;
         border-radius: 10px !important;
-        font-weight: 600 !important;
+        box-shadow: 0 0 15px #00eaff !important;
+        font-size: 1.1rem !important;
+        padding: 0.8rem !important;
     }
+    .enter-btn button:hover {
+        box-shadow: 0 0 25px #00eaff !important;
+        transform: scale(1.03);
+        transition: 0.2s;
+    }
+
     .enter-btn button:disabled {
-        background: #bbbbbb !important;
-        color: #666666 !important;
+        background: #777 !important;
+        color: #ccc !important;
+        box-shadow: none !important;
     }
+
     </style>
     """, unsafe_allow_html=True)
 
     # ==============================
     # ENCABEZADO
     # ==============================
-    st.markdown('<h1 class="privacy-title">Portal Estudiantil Digital</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="privacy-subtitle">Asistente Virtual del Colegio</p>', unsafe_allow_html=True)
-    st.markdown("### 🤖 Bienvenido")
+    st.markdown('<h1 class="privacy-title">PORTAL ESTUDIANTIL DIGITAL</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="privacy-subtitle">Asistente Virtual Inteligente del Colegio</p>', unsafe_allow_html=True)
+    st.markdown("### 🤖 Sistema IA Activado")
 
     # ==============================
-    # TARJETA DE PRIVACIDAD
+    # TARJETA GLASS UI
     # ==============================
-    with st.container():
-        st.markdown('<div class="privacy-card">', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
 
-        st.markdown("""
-            <h2 style='color:#333; text-align:center; margin-bottom:1.5rem;'>
-                Política de Privacidad y Protección de Datos
-            </h2>
-        """, unsafe_allow_html=True)
+    st.markdown("""
+        <h2 style="color:#00eaff; text-align:center; margin-bottom:1.5rem; text-shadow:0 0 10px #00eaff;">
+            Política de Privacidad
+        </h2>
+    """, unsafe_allow_html=True)
 
-        st.markdown("""
+    st.markdown("""
         <div class="privacy-text">
-            Para continuar necesitamos que aceptes nuestra política de tratamiento de datos personales 
+            Para ingresar al sistema, debes aceptar nuestra política de tratamiento de datos personales
             conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.<br><br>
 
-            Tus datos (nombre, documento, notas, solicitudes y consultas) serán usados únicamente para:<br>
-            ✔ Gestión académica<br>
-            ✔ Generación de certificados<br>
-            ✔ Comunicación institucional<br>
-            ✔ Mejorar tu experiencia en el portal<br><br>
+            Tus datos se usan solamente para:<br>
+            • Gestión académica<br>
+            • Generación de certificados<br>
+            • Comunicación con estudiantes y acudientes<br>
+            • Mejorar tu experiencia con inteligencia artificial<br><br>
 
-            <strong>No compartimos tus datos con terceros</strong> y puedes ejercer tus derechos 
-            (acceso, actualización o eliminación) en cualquier momento.
+            <strong>No vendemos ni compartimos tus datos con terceros.</strong>
         </div>
-        """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
-        # ==============================
-        # CHECKBOX + TEXTO
-        # ==============================
-        col1, col2 = st.columns([1, 8])
-        with col1:
-            acepto = st.checkbox("")
+    # ==============================
+    # CHECKBOX
+    # ==============================
+    col1, col2 = st.columns([1, 8])
+    with col1:
+        acepto = st.checkbox("")
 
-        with col2:
-            st.markdown('<span class="checkbox-label">He leído y acepto la política de privacidad</span>', unsafe_allow_html=True)
+    with col2:
+        st.markdown('<span class="checkbox-label">Acepto la política de privacidad</span>', unsafe_allow_html=True)
 
-        # ==============================
-        # BOTÓN
-        # ==============================
-        st.markdown('<div class="enter-btn">', unsafe_allow_html=True)
+    # ==============================
+    # BOTÓN
+    # ==============================
+    st.markdown('<div class="enter-btn">', unsafe_allow_html=True)
 
-        if acepto:
-            if st.button("🚀 Entrar al Sistema", use_container_width=True):
-                st.session_state.privacy_accepted = True
-                st.rerun()
-        else:
-            st.button("🚀 Entrar al Sistema", disabled=True, use_container_width=True)
+    if acepto:
+        if st.button("🚀 INICIAR SISTEMA", use_container_width=True):
+            st.session_state.privacy_accepted = True
+            st.rerun()
+    else:
+        st.button("🚀 INICIAR SISTEMA", disabled=True, use_container_width=True)
 
-        st.markdown('</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 
 # ============================================
