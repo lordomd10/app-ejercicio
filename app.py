@@ -1280,68 +1280,80 @@ def main():
         mostrar_dashboard_profesor()
 
 # ============================================
-# BOTÓN FLOTANTE DE WHATSAPP (esquina inferior derecha)
+# BOTÓN FLOTANTE WHATSAPP - VERSIÓN CORREGIDA Y BONITA
 # ============================================
 def whatsapp_flotante():
-    # Número de WhatsApp del colegio (cambia aquí)
-    numero_whatsapp = "573224417675"  # ← Cambia por el número real
+    if not st.session_state.get('logged_in', False):
+        return
+        
+    numero_whatsapp = "573102223334"  # ← Cambia por el número real del colegio
+    nombre = st.session_state.user_data.get('nombre', 'un estudiante')
+    colegio = st.session_state.get('colegio', 'la institución')
     
-    # Mensaje inicial que aparecerá
-    mensaje = f"Hola, soy {st.session_state.user_data.get('nombre', 'un estudiante')} del {st.session_state.get('colegio', 'la institución')}. Necesito ayuda con:"
-
+    mensaje = f"Hola, soy {nombre} del {colegio}. Necesito ayuda con:"
     enlace = f"https://wa.me/{numero_whatsapp}?text={mensaje.replace(' ', '%20')}"
 
     st.markdown(f"""
-    <a href="{enlace}" target="_blank">
-        <div style="
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            cursor: pointer;
-        ">
-            <div style="
-                background-color: #25D366;
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-                transition: all 0.4s ease;
-                position: relative;
-            " 
-            onmouseover="this.style.transform='scale(1.2)'; this.querySelector('img').style.transform='scale(1.3)'; this.nextElementSibling.style.opacity='1'; this.nextElementSibling.style.transform='translateY(-10px)';"
-            onmouseout="this.style.transform='scale(1)'; this.querySelector('img').style.transform='scale(1)'; this.nextElementSibling.style.opacity='0'; this.nextElementSibling.style.transform='translateY(0)';">
-                
+    <style>
+    .whatsapp-flotante {{
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+    }}
+    .whatsapp-btn {{
+        width: 60px;
+        height: 60px;
+        background-color: #25D366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }}
+    .whatsapp-btn:hover {{
+        transform: scale(1.2);
+        box-shadow: 0 8px 25px rgba(37,211,102,0.6);
+    }}
+    .tooltip {{
+        position: absolute;
+        bottom: 80px;
+        right: 0;
+        background-color: #128C7E;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: bold;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        transform: translateY(10px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }}
+    .whatsapp-btn:hover + .tooltip {{
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }}
+    </style>
+
+    <div class="whatsapp-flotante">
+        <a href="{enlace}" target="_blank">
+            <div class="whatsapp-btn">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="38">
-                
-                <!-- Tooltip que aparece al pasar el mouse -->
-                <div style="
-                    position: absolute;
-                    bottom: 75px;
-                    right: -10px;
-                    background-color: #128C7E;
-                    color: white;
-                    padding: 10px 15px;
-                    border-radius: 10px;
-                    font-size: 14px;
-                    font-weight: bold;
-                    white-space: nowrap;
-                    opacity: 0;
-                    transition: all 0.4s ease;
-                    pointer-events: none;
-                    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-                ">
-                    ¿Deseas hablar con la línea de atención al estudiante?
-                </div>
             </div>
+        </a>
+        <div class="tooltip">
+            ¿Deseas hablar con la línea de atención al estudiante?
         </div>
-    </a>
+    </div>
     """, unsafe_allow_html=True)
 
-# Llamar al botón flotante solo cuando el usuario esté logueado
+# Llamar al botón solo cuando esté logueado
 if st.session_state.get('logged_in', False):
     whatsapp_flotante()
 
