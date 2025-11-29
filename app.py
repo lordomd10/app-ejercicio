@@ -657,174 +657,84 @@ Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aq
 # PÁGINA DE PRIVACIDAD
 # ============================================
 def mostrar_aviso_privacidad():
-
-    # ==============================
-    # ESTILOS FUTURISTAS – ROBOT UI
-    # ==============================
     st.markdown("""
     <style>
-
-    /* Fondo futurista estilo panel digital */
     .stApp {
-        background: url('https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
-        background-size: cover;
-        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
         color: white;
     }
-
-    /* Filtro oscuro futurista */
-    .stApp::before {
-        content: "";
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0, 0, 0, 0.55);
-        backdrop-filter: blur(4px);
-        z-index: -1;
-    }
-
-    /* Título principal */
     .privacy-title {
-        font-size: 3rem;
-        font-weight: 900;
-        text-align: center;
-        color: #00eaff;
-        margin-bottom: 0.4rem;
-        text-shadow: 0 0 20px #00eaff;
-        letter-spacing: 2px;
+        color: #00d4ff !important;
+        font-size: 3.2rem !important;
+        font-weight: 900 !important;
+        text-align: center !important;
+        margin-bottom: 0.5rem !important;
+        text-shadow: 0 0 20px rgba(0,212,255,0.5);
     }
-
-    /* Subtítulo */
     .privacy-subtitle {
-        font-size: 1.4rem;
-        text-align: center;
-        color: #d9faff;
-        margin-bottom: 3rem;
-        opacity: 0.85;
+        color: #a0e7ff !important;
+        font-size: 1.4rem !important;
+        text-align: center !important;
+        margin-bottom: 2rem !important;
     }
-
-    /* Tarjeta Glass */
-    .glass-card {
-        background: rgba(255, 255, 255, 0.12);
-        padding: 2.8rem;
-        border-radius: 1.5rem;
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        box-shadow: 0 0 30px rgba(0, 255, 255, 0.25);
-        animation: fadein 0.9s ease-in-out;
+    .privacy-card {
+        background: rgba(15, 32, 39, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0,212,255,0.3);
+        padding: 3rem;
+        border-radius: 24px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        color: white !important;
     }
-
-    @keyframes fadein {
-        from {opacity: 0; transform: translateY(15px);}
-        to {opacity: 1; transform: translateY(0);}
-    }
-
-    /* TEXTO holográfico moderno */
     .privacy-text {
-        color: #e6fcff;
-        line-height: 1.8;
-        font-size: 1.15rem;
-        margin-bottom: 2rem;
-        padding: 1.2rem 1.5rem;
-        border-radius: 1rem;
-        background: linear-gradient(135deg, rgba(0,255,255,0.18), rgba(0,120,180,0.15));
-        border: 1px solid rgba(0, 255, 255, 0.25);
-        box-shadow: 0 0 15px rgba(0,255,255,0.15);
-        text-shadow: 0 0 10px rgba(0,0,0,0.6);
+        text-align: justify !important;
+        line-height: 1.8 !important;
+        font-size: 1.15rem !important;
+        color: #e0f7fa !important;
+        margin: 1.5rem 0 !important;
     }
-
-    /* Checkbox */
-    .checkbox-label {
-        color: #c8ffff;
-        font-size: 1.2rem;
-        font-weight: 600;
-        margin-left: 0.3rem;
-    }
-
-    /* Botón futurista */
-    .enter-btn button {
-        background: linear-gradient(135deg, #00eaff, #0088ff) !important;
-        border: none !important;
-        color: black !important;
-        font-weight: 800 !important;
-        letter-spacing: 1px;
-        border-radius: 10px !important;
-        box-shadow: 0 0 15px #00eaff !important;
-        font-size: 1.1rem !important;
-        padding: 0.8rem !important;
-    }
-    .enter-btn button:hover {
-        box-shadow: 0 0 25px #00eaff !important;
-        transform: scale(1.03);
-        transition: 0.2s;
-    }
-
-    .enter-btn button:disabled {
-        background: #777 !important;
-        color: #ccc !important;
-        box-shadow: none !important;
-    }
-
     </style>
     """, unsafe_allow_html=True)
 
-    # ==============================
-    # ENCABEZADO
-    # ==============================
-    st.markdown('<h1 class="privacy-title">ASISTENTE VIRTUAL IRIS</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="privacy-subtitle">Portal Estudiantil Inteligente</p>', unsafe_allow_html=True)
-    st.markdown("### 🤖 Sistema IA Activado")
+    st.markdown('<h1 class="privacy-title">Portal Estudiantil</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="privacy-subtitle">Asistente Virtual del Colegio</p>', unsafe_allow_html=True)
+    
+    # Robot del mismo estilo que tu app
+    st.markdown("<div style='text-align:center; font-size:120px; margin:20px 0;'>Asistente Virtual</div>", unsafe_allow_html=True)
 
-    # ==============================
-    # TARJETA GLASS UI
-    # ==============================
-    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
+    with st.container():
+        st.markdown('<div class="privacy-card">', unsafe_allow_html=True)
+        
+        st.markdown("<h2 style='color:#00d4ff; text-align:center; margin-bottom:1.5rem;'>Política de Privacidad</h2>", unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="privacy-text">
+            Para usar el sistema necesitamos que aceptes nuestra política de tratamiento de datos personales 
+            conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.<br><br>
+            Tus datos (nombre, cédula, notas y consultas) serán usados únicamente para:<br>
+            • Gestión académica y generación de certificados<br>
+            • Comunicación institucional<br>
+            • Mejorar tu experiencia en el portal<br><br>
+            <strong>No compartimos tus datos con terceros</strong> y puedes ejercer tus derechos ARCO en cualquier momento.
+        </div>
+        """, unsafe_allow_html=True)
 
-    st.markdown("""
-        <h2 style="color:#00eaff; text-align:center; margin-bottom:1.5rem; text-shadow:0 0 10px #00eaff;">
-            Política de Privacidad
-        </h2>
-    """, unsafe_allow_html=True)
+        col1, col2 = st.columns([1, 5])
+        with col1:
+            acepto = st.checkbox("", key="privacy_check", label_visibility="collapsed")
+        with col2:
+            st.markdown("<label style='font-size:1.3rem; font-weight:bold; color:#00d4ff;'>He leído y acepto la política de privacidad</label>", unsafe_allow_html=True)
 
-    # TEXTO MEJORADO EN FONDO HOLOGRÁFICO
-    st.markdown("""
-    <div class="privacy-text">
-        Para continuar, debes aceptar nuestra política de tratamiento de datos personales
-        conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.<br><br>
+        centro = st.columns([1,2,1])
+        with centro[1]:
+            if acepto:
+                if st.button("Entrar al Sistema", type="primary", use_container_width=True):
+                    st.session_state.privacy_accepted = True
+                    st.rerun()
+            else:
+                st.button("Entrar al Sistema", type="primary", use_container_width=True, disabled=True)
 
-        Tus datos se usan solamente para:<br>
-        • <strong>Gestión académica</strong><br>
-        • <strong>Generación de certificados</strong><br>
-        • <strong>Comunicación con estudiantes y acudientes</strong><br>
-        • <strong>Mejorar tu experiencia mediante la Inteligencia Artificial IRIS</strong><br><br>
-
-        <strong>No vendemos ni compartimos tus datos con terceros.</strong>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # ==============================
-    # CHECKBOX
-    # ==============================
-    col1, col2 = st.columns([1, 8])
-    with col1:
-        acepto = st.checkbox("")
-
-    with col2:
-        st.markdown('<span class="checkbox-label">Acepto la política de privacidad</span>', unsafe_allow_html=True)
-
-    # ==============================
-    # BOTÓN
-    # ==============================
-    st.markdown('<div class="enter-btn">', unsafe_allow_html=True)
-
-    if acepto:
-        if st.button("🚀 INICIAR SISTEMA", use_container_width=True):
-            st.session_state.privacy_accepted = True
-            st.rerun()
-    else:
-        st.button("🚀 INICIAR SISTEMA", disabled=True, use_container_width=True)
-
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 
