@@ -570,19 +570,87 @@ def procesar_pregunta(pregunta):
     
     elif any(palabra in pregunta_lower for palabra in ['gracias', 'thank', 'genial']):
         return "😊 ¡Con gusto! Si necesitas más ayuda, solo pregúntame."
-    
+
     else:
-        return """🤔 No estoy seguro de entender tu pregunta. Puedo ayudarte con:
+        # RESPUESTAS INTELIGENTES A MÁS PREGUNTAS
+        pregunta_lower = pregunta_lower.replace("?", "").replace(".", "").replace("!", "")
 
-📊 **Notas y promedios** - Pregunta por tus calificaciones
-📅 **Asistencia** - Consulta cuántas clases has asistido
-📜 **Certificado** - Genera tu certificado de estudios
-📈 **Dashboard** - Ver un resumen de tu rendimiento
-📅 **Calendario** - Fechas importantes y actividades
-⏰ **Horarios** - Horario de clases y entregas
-🎓 **Tutorías** - Apoyo académico
+        respuestas = {
+            # MATRÍCULAS Y COSTOS
+            "cuanto cuesta": info_escolar["matriculas"],
+            "costo": info_escolar["matriculas"],
+            "precio": info_escolar["matriculas"],
+            "valor matricula": info_escolar["matriculas"],
+            "pago": "💰 Los pagos se realizan en el banco o por PSE. Tienes hasta el 15 de noviembre para estudiantes antiguos. Más detalles:\n\n" + info_escolar["matriculas"],
+            "inscribir": info_escolar["matriculas"],
+            "requisitos": info_escolar["matriculas"],
+            "paz y salvo": "📄 Para paz y salvo debes estar al día en pagos y devolver libros de biblioteca. Acércate a secretaría de 7:00 AM a 12:00 PM.",
 
-¿Sobre cuál de estos temas te gustaría saber más?"""
+            # CALENDARIO Y FESTIVOS
+            "dia del idioma": "🗣️ El Día del Idioma se celebra el **23 de abril**. Habrá concurso de poesía y declamación. ¡Prepárate!",
+            "halloween": "🎃 ¡Sí! El 31 de octubre celebramos Halloween escolar con desfile de disfraces y actividades divertidas.",
+            "dia del niño": "🎈 El Día del Niño es el **30 de abril**. Habrá juegos, refrigerio y sorpresas para todos.",
+            "dia de la mujer": "🌸 El 8 de marzo celebramos el Día de la Mujer con actividades especiales.",
+            "festivo": "Los festivos nacionales NO hay clases. El próximo es el **Batalla de Boyacá - 7 de agosto** (puente).",
+            "vacaciones": info_escolar["calendario_academico"],
+
+            # TRANSPORTE Y RUTAS
+            "transporte": info_escolar["rutas_escolares"],
+            "bus": info_escolar["rutas_escolares"],
+            "ruta": info_escolar["rutas_escolares"],
+            "recogerme": "Sí, tenemos 3 rutas escolares. Contáctanos al 310-555-1234 para inscribirte:\n\n" + info_escolar["rutas_escolares"],
+
+            # HORARIOS Y JORNADA
+            "a que hora entro": info_escolar["horarios"],
+            "a que hora salgo": info_escolar["horarios"],
+            "jornada": info_escolar["horarios"],
+            "recreo": "🥪 El descanso es de 8:25 a 8:50 AM y de 10:30 a 10:50 AM. ¡Aprovecha para comer algo!",
+
+            # ENTREGAS Y RECUPERACIÓN
+            "recuperar": "Sí puedes recuperar notas. Habla con tu profesor para programar una evaluación de recuperación antes del 20 de cada período.",
+            "boletines": info_escolar["reuniones"],
+            "cuando entregan boletines": info_escolar["reuniones"],
+            "tareas pendientes": info_escolar["fechas_entrega"],
+
+            # UBICACIÓN Y CONTACTO
+            "direccion": "📍 Estamos ubicados en la carrera 10 # 15-20, centro de la ciudad. ¡Te esperamos!",
+            "telefono": "📞 Secretaría: 601-555-0123\nTransporte: 310-555-1234\nCoordinación: coordinacion@colegio.edu.co",
+            "donde queda": "Estamos en el centro, cerca de la plaza principal. Carrera 10 # 15-20.",
+
+            # ACTIVIDADES
+            "festival": "🎭 El Festival de Talentos es el **11 de noviembre**. ¡Inscribe tu acto en coordinación!",
+            "feria de la ciencia": "🔬 La feria científica será en la tercera semana de octubre. ¡Empieza tu proyecto!",
+            "clausura": "🎓 La clausura y grados serán el **29 de noviembre**. ¡Los esperamos a todos!",
+
+            # GENERAL
+            "hola": f"👋 ¡Hola {st.session_state.user_data['nombre']}! 😊 Soy tu asistente virtual. Pregúntame lo que necesites.",
+            "como estas": "¡Excelente! Listo para ayudarte 😄 ¿En qué te colaboro hoy?",
+            "gracias": "¡De nada! 😊 Siempre aquí para ayudarte. ¡Que tengas un lindo día!",
+        }
+
+        for clave, respuesta in respuestas.items():
+            if clave in pregunta_lower:
+                # Contar la consulta
+                tema = clave.split()[0] if " " in clave else clave
+                st.session_state.consultas["otras"] = st.session_state.consultas.get("otras", 0) + 1
+                return respuesta
+
+        # Si no entiende nada
+        return """🤔 Mmm, esa pregunta aún no la tengo aprendida, ¡pero estoy aprendiendo rápido! 😄
+
+Puedo ayudarte con:
+• Notas, promedio y boletines  
+• Certificado de estudios  
+• Calendario, festivos y vacaciones  
+• Matrícula y costos  
+• Transporte escolar  
+• Horarios y recreos  
+• Actividades y eventos  
+• Tutorías y recuperación de notas  
+• Dirección y teléfonos del colegio  
+
+Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aquí para ayudarte!"""
+    
 
 # ============================================
 # PÁGINA DE PRIVACIDAD
