@@ -657,247 +657,143 @@ Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aq
 # PÁGINA DE PRIVACIDAD
 # ============================================
 def mostrar_aviso_privacidad():
-    # Estilos CSS optimizados (sin imágenes externas)
+    # ==============================
+    # ESTILOS MEJORADOS
+    # ==============================
     st.markdown("""
     <style>
-    /* Fondo degradado profesional */
     .stApp {
-        background: linear-gradient(135deg, #5e60ce 0%, #8f94fb 100%);
+        background: linear-gradient(135deg, #5a73e0 0%, #7b3fa1 100%);
+        color: white;
+        font-family: 'Segoe UI', sans-serif;
     }
-    
-    /* Contenedor principal */
-    .privacy-container {
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 2rem;
-    }
-    
-    /* Título principal */
+
+    /* Títulos */
     .privacy-title {
-        color: white !important;
-        font-size: 2.8rem !important;
-        font-weight: 800 !important;
-        text-align: center !important;
-        margin-bottom: 1rem !important;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        animation: fadeIn 1s ease-out;
+        font-size: 3rem;
+        font-weight: 800;
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 0.2rem;
+        text-shadow: 0px 4px 10px rgba(0,0,0,0.3);
     }
-    
-    /* Subtítulo */
     .privacy-subtitle {
-        color: #e6e6ff !important;
-        font-size: 1.3rem !important;
-        text-align: center !important;
-        margin-bottom: 3rem !important;
-        font-weight: 500;
+        font-size: 1.4rem;
+        text-align: center;
+        color: #f2f2f2;
+        margin-bottom: 2.2rem;
     }
-    
-    /* Tarjeta de contenido */
+
+    /* Tarjeta principal */
     .privacy-card {
-        background: white;
-        padding: 2.5rem;
-        border-radius: 1.5rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-        color: #333;
-        position: relative;
-        overflow: hidden;
+        background: #ffffff;
+        padding: 3rem;
+        border-radius: 1.6rem;
+        box-shadow: 0 1rem 2.5rem rgba(0,0,0,0.25);
+        animation: fadeIn 0.8s ease-in-out;
     }
-    
-    /* Línea superior en la tarjeta */
-    .privacy-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 6px;
-        background: linear-gradient(90deg, #667eea, #764ba2);
-        border-radius: 1.5rem 1.5rem 0 0;
+
+    /* Animación suave */
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(10px);}
+        to {opacity: 1; transform: translateY(0);}
     }
-    
-    /* Texto de la política */
+
+    /* Cuerpo del texto */
     .privacy-text {
         text-align: justify;
-        line-height: 1.7 !important;
-        font-size: 1.1rem !important;
-        color: #444;
+        font-size: 1.15rem;
+        line-height: 1.7;
         margin-bottom: 2rem;
-        font-family: 'Roboto', sans-serif;
+        color: #333333;
     }
-    
-    /* Lista de puntos */
-    .privacy-list {
-        list-style-type: none;
-        padding: 0;
-        margin: 1.5rem 0;
-    }
-    
-    .privacy-list li {
-        margin: 0.8rem 0;
-        padding-left: 2rem;
-        position: relative;
-        color: #555;
-    }
-    
-    .privacy-list li::before {
-        content: "•";
-        color: #764ba2;
-        font-weight: bold;
-        position: absolute;
-        left: 0;
-    }
-    
-    /* Contenedor del checkbox */
-    .checkbox-container {
+
+    /* Checkbox */
+    .checkbox-label {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333;
+        margin-left: 0.5rem;
         display: flex;
         align-items: center;
-        margin: 2.5rem 0;
-        padding: 1rem;
-        background: #f8f9fa;
-        border-radius: 1rem;
-        border: 2px solid #e9ecef;
-        transition: all 0.3s ease;
     }
-    
-    .checkbox-container:hover {
-        border-color: #764ba2;
-        background: #fff;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    
-    /* Label del checkbox */
-    .checkbox-label {
-        font-size: 1.2rem !important;
-        font-weight: 600 !important;
-        color: #2d3748;
-        margin-left: 1rem;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    /* Botón mejorado */
-    .stButton > button {
-        background: linear-gradient(90deg, #667eea, #764ba2) !important;
+
+    /* Botón personalizado */
+    .enter-btn button {
+        background: linear-gradient(135deg, #5a73e0, #7b3fa1) !important;
         color: white !important;
+        font-size: 1.2rem !important;
+        padding: 0.8rem !important;
+        border-radius: 10px !important;
         font-weight: 600 !important;
-        font-size: 1.1rem !important;
-        padding: 0.8rem 2rem !important;
-        border-radius: 0.8rem !important;
-        border: none !important;
-        box-shadow: 0 4px 15px rgba(102, 110, 234, 0.3) !important;
-        transition: all 0.3s ease !important;
-        cursor: pointer;
     }
-    
-    .stButton > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px rgba(102, 110, 234, 0.4) !important;
-    }
-    
-    .stButton > button:disabled {
-        background: #cbd5e0 !important;
-        box-shadow: none !important;
-        transform: none !important;
-    }
-    
-    /* Icono de privacidad (emoji) */
-    .privacy-icon {
-        font-size: 3.5rem;
-        text-align: center;
-        margin-bottom: 1.5rem;
-        color: #fff;
-    }
-    
-    /* Animación para el título */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
+    .enter-btn button:disabled {
+        background: #bbbbbb !important;
+        color: #666666 !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
-    # Contenedor principal
-    st.markdown('<div class="privacy-container">', unsafe_allow_html=True)
+    # ==============================
+    # ENCABEZADO
+    # ==============================
+    st.markdown('<h1 class="privacy-title">Portal Estudiantil Digital</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="privacy-subtitle">Asistente Virtual del Colegio</p>', unsafe_allow_html=True)
+    st.markdown("### 🤖 Bienvenido")
 
-    # Icono y título
-    st.markdown('<div class="privacy-icon">🔒</div>', unsafe_allow_html=True)
-    st.markdown('<h1 class="privacy-title">Aviso de Privacidad</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="privacy-subtitle">Protección de tus datos personales</p>', unsafe_allow_html=True)
+    # ==============================
+    # TARJETA DE PRIVACIDAD
+    # ==============================
+    with st.container():
+        st.markdown('<div class="privacy-card">', unsafe_allow_html=True)
 
-    # Tarjeta de contenido
-    st.markdown('<div class="privacy-card">', unsafe_allow_html=True)
+        st.markdown("""
+            <h2 style='color:#333; text-align:center; margin-bottom:1.5rem;'>
+                Política de Privacidad y Protección de Datos
+            </h2>
+        """, unsafe_allow_html=True)
 
-    # Texto principal
-    st.markdown("""
-    <div class="privacy-text">
-        <p style="font-weight: 600; font-size: 1.2rem; margin-bottom: 1.5rem; color: #2d3748;">
-            🎯 <strong>PROPÓSITO DEL TRATAMIENTO</strong>
-        </p>
-        <p>Con el fin de brindarte un servicio educativo de calidad y cumplir con las normativas 
-        vigentes, necesitamos que aceptes nuestra política de tratamiento de datos personales 
-        conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.</p>
-        
-        <p style="margin-top: 1.5rem; font-weight: 600; font-size: 1.2rem; color: #2d3748;">
-            📌 <strong>DATOS QUE RECOPILAMOS</strong>
-        </p>
-        <p>Los datos personales que tratamos incluyen:</p>
-        
-        <ul class="privacy-list">
-            <li>Nombre completo</li>
-            <li>Número de identificación (cédula)</li>
-            <li>Información académica (notas, asignaturas, asistencia)</li>
-            <li>Historial de consultas en el sistema</li>
-        </ul>
-        
-        <p style="margin-top: 1.5rem; font-weight: 600; font-size: 1.2rem; color: #2d3748;">
-            🛡️ <strong>CÓMO PROTEGEMOS TUS DATOS</strong>
-        </p>
-        <p>Implementamos medidas técnicas y organizativas de seguridad para proteger tus datos 
-        contra la pérdida, destrucción, alteración, revelación o acceso no autorizado.</p>
-        
-        <p style="margin-top: 1.5rem; font-weight: 600; font-size: 1.2rem; color: #2d3748;">
-            📜 <strong>TUS DERECHOS</strong>
-        </p>
-        <p>En todo momento puedes ejercer tus derechos de:</p>
-        
-        <ul class="privacy-list">
-            <li>Acceso a tus datos</li>
-            <li>Rectificación de datos inexactos</li>
-            <li>Eliminación de datos</li>
-            <li>Limitación del tratamiento</li>
-            <li>Revocación del consentimiento</li>
-        </ul>
-        
-        <p style="margin-top: 1.5rem; font-weight: 600; font-size: 1.2rem; color: #2d3748;">
-            📞 <strong>CONTACTO</strong>
-        </p>
-        <p>Para cualquier consulta sobre el tratamiento de tus datos:</p>
-        <p style="background: #f0f7ff; padding: 1rem; border-radius: 0.8rem; margin-top: 0.5rem;">
-            ✉️ <strong>Correo:</strong> protecciondatos@colegio.edu.co<br>
-            📞 <strong>Teléfono:</strong> (601) 555-0123
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+        st.markdown("""
+        <div class="privacy-text">
+            Para continuar necesitamos que aceptes nuestra política de tratamiento de datos personales 
+            conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.<br><br>
 
-    # Checkbox y botón
-    col1, col2, col3 = st.columns([0.5, 2, 0.5])
-    
-    with col2:
-        st.markdown('<div class="checkbox-container">', unsafe_allow_html=True)
-        checkbox = st.checkbox("", key="privacy_checkbox", label_visibility="collapsed")
-        st.markdown('<label class="checkbox-label">He leído y acepto la política de privacidad y protección de datos personales</label>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+            Tus datos (nombre, documento, notas, solicitudes y consultas) serán usados únicamente para:<br>
+            ✔ Gestión académica<br>
+            ✔ Generación de certificados<br>
+            ✔ Comunicación institucional<br>
+            ✔ Mejorar tu experiencia en el portal<br><br>
 
-        # Botón con condición
-        if checkbox:
-            if st.button("🚀 Entrar al Sistema", type="primary", use_container_width=True):
+            <strong>No compartimos tus datos con terceros</strong> y puedes ejercer tus derechos 
+            (acceso, actualización o eliminación) en cualquier momento.
+        </div>
+        """, unsafe_allow_html=True)
+
+        # ==============================
+        # CHECKBOX + TEXTO
+        # ==============================
+        col1, col2 = st.columns([1, 8])
+        with col1:
+            acepto = st.checkbox("")
+
+        with col2:
+            st.markdown('<span class="checkbox-label">He leído y acepto la política de privacidad</span>', unsafe_allow_html=True)
+
+        # ==============================
+        # BOTÓN
+        # ==============================
+        st.markdown('<div class="enter-btn">', unsafe_allow_html=True)
+
+        if acepto:
+            if st.button("🚀 Entrar al Sistema", use_container_width=True):
                 st.session_state.privacy_accepted = True
                 st.rerun()
         else:
-            st.button("🚀 Entrar al Sistema", type="primary", use_container_width=True, disabled=True)
+            st.button("🚀 Entrar al Sistema", disabled=True, use_container_width=True)
 
-    st.markdown('</div>', unsafe_allow_html=True)  # Cierre de privacy-card
-    st.markdown('</div>', unsafe_allow_html=True)  # Cierre de privacy-container
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
 
 # ============================================
 # USO EN TU APLICACIÓN
