@@ -3,4 +3,3 @@ pandas
 fpdf
 plotly
 reportlab
-streamlit-lottie
