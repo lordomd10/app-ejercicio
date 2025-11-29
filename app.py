@@ -8,16 +8,7 @@ import base64
 import re
 import plotly.graph_objects as go
 import plotly.express as px
-import streamlit.components.v1 as components
-import json
-import requests
-from streamlit_lottie import st_lottie
 
-def load_lottie_url(url: str):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
 
 # ============================================
 # CONFIGURACIÓN INICIAL
@@ -667,9 +658,6 @@ Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aq
 # ============================================
 def mostrar_aviso_privacidad():
 
-    # --------- CARGAR ANIMACIÓN 3D DE ROBOT ---------
-    robot = load_lottie_url("https://lottie.host/0ba24df5-a785-4d72-aec4-2260ba9dc625/vgI9kTBwWm.json")
-
     # ==============================
     # ESTILOS FUTURISTAS – ROBOT UI
     # ==============================
@@ -684,6 +672,7 @@ def mostrar_aviso_privacidad():
         color: white;
     }
 
+    /* Filtro oscuro futurista */
     .stApp::before {
         content: "";
         position: fixed;
@@ -693,6 +682,7 @@ def mostrar_aviso_privacidad():
         z-index: -1;
     }
 
+    /* Título principal */
     .privacy-title {
         font-size: 3rem;
         font-weight: 900;
@@ -703,14 +693,16 @@ def mostrar_aviso_privacidad():
         letter-spacing: 2px;
     }
 
+    /* Subtítulo */
     .privacy-subtitle {
         font-size: 1.4rem;
         text-align: center;
         color: #d9faff;
-        margin-bottom: 1rem;
+        margin-bottom: 3rem;
         opacity: 0.85;
     }
 
+    /* Tarjeta Glass */
     .glass-card {
         background: rgba(255, 255, 255, 0.12);
         padding: 2.8rem;
@@ -726,6 +718,7 @@ def mostrar_aviso_privacidad():
         to {opacity: 1; transform: translateY(0);}
     }
 
+    /* TEXTO holográfico moderno */
     .privacy-text {
         color: #e6fcff;
         line-height: 1.8;
@@ -739,6 +732,7 @@ def mostrar_aviso_privacidad():
         text-shadow: 0 0 10px rgba(0,0,0,0.6);
     }
 
+    /* Checkbox */
     .checkbox-label {
         color: #c8ffff;
         font-size: 1.2rem;
@@ -746,6 +740,7 @@ def mostrar_aviso_privacidad():
         margin-left: 0.3rem;
     }
 
+    /* Botón futurista */
     .enter-btn button {
         background: linear-gradient(135deg, #00eaff, #0088ff) !important;
         border: none !important;
@@ -757,17 +752,27 @@ def mostrar_aviso_privacidad():
         font-size: 1.1rem !important;
         padding: 0.8rem !important;
     }
+    .enter-btn button:hover {
+        box-shadow: 0 0 25px #00eaff !important;
+        transform: scale(1.03);
+        transition: 0.2s;
+    }
+
+    .enter-btn button:disabled {
+        background: #777 !important;
+        color: #ccc !important;
+        box-shadow: none !important;
+    }
+
     </style>
     """, unsafe_allow_html=True)
 
     # ==============================
-    # ENCABEZADO + ROBOT ANIMADO
+    # ENCABEZADO
     # ==============================
     st.markdown('<h1 class="privacy-title">ASISTENTE VIRTUAL IRIS</h1>', unsafe_allow_html=True)
     st.markdown('<p class="privacy-subtitle">Portal Estudiantil Inteligente</p>', unsafe_allow_html=True)
-
-    # ANIMACIÓN 3D DEL ROBOT
-    st_lottie(robot, height=260, key="robot_iris")
+    st.markdown("### 🤖 Sistema IA Activado")
 
     # ==============================
     # TARJETA GLASS UI
@@ -780,7 +785,7 @@ def mostrar_aviso_privacidad():
         </h2>
     """, unsafe_allow_html=True)
 
-    # TEXTO HOLOGRÁFICO
+    # TEXTO MEJORADO EN FONDO HOLOGRÁFICO
     st.markdown("""
     <div class="privacy-text">
         Para continuar, debes aceptar nuestra política de tratamiento de datos personales
@@ -796,12 +801,19 @@ def mostrar_aviso_privacidad():
     </div>
     """, unsafe_allow_html=True)
 
+    # ==============================
+    # CHECKBOX
+    # ==============================
     col1, col2 = st.columns([1, 8])
     with col1:
         acepto = st.checkbox("")
+
     with col2:
         st.markdown('<span class="checkbox-label">Acepto la política de privacidad</span>', unsafe_allow_html=True)
 
+    # ==============================
+    # BOTÓN
+    # ==============================
     st.markdown('<div class="enter-btn">', unsafe_allow_html=True)
 
     if acepto:
@@ -813,6 +825,7 @@ def mostrar_aviso_privacidad():
 
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 # ============================================
