@@ -741,7 +741,7 @@ def mostrar_aviso_privacidad():
             </p>
 
             <label class="checkbox-label">
-                <input type="checkbox"checkbox" id="acepto">
+                <input type="checkbox" id="acepto">
                 <span>He leído y acepto la política de privacidad</span>
             </label>
 
@@ -751,7 +751,6 @@ def mostrar_aviso_privacidad():
         <script>
             const checkbox = document.getElementById('acepto');
             const boton = document.getElementById('botonEntrar');
-
             checkbox.addEventListener('change', function() {
                 if (this.checked) {
                     boton.classList.add('active');
@@ -770,11 +769,11 @@ def mostrar_aviso_privacidad():
 
     components.html(html_code, height=1000, scrolling=True)
 
-    # Detectamos si ya aceptó
-    if st.query_params := st.query_params.to_dict():
-        if st.query_params.get("privacidad") == "aceptada":
-            st.session_state.privacy_accepted = True
-            st.rerun()
+    # ← ESTA ES LA PARTE CORREGIDA (sin :=)
+    query_params = st.query_params.to_dict()
+    if query_params.get("privacidad") == "aceptada":
+        st.session_state.privacy_accepted = True
+        st.rerun()
 # ============================================
 # PÁGINA DE LOGIN
 # ============================================
