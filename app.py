@@ -656,84 +656,114 @@ Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aq
 # PÁGINA DE PRIVACIDAD
 # ============================================
 def mostrar_aviso_privacidad():
+    # === FONDO + ESTILO COMPLETO DE LA PANTALLA DE PRIVACIDAD ===
     st.markdown("""
     <style>
-    .privacy-box {
-        background-color: #f0f2f6;
+    .privacy-container {
+        height: 100vh;
+        background: linear-gradient(135deg, rgba(30,60,114,0.95), rgba(42,82,152,0.95)),
+                    url('https://images.unsplash.com/photo-1535378620166-273708d44e4c?q=80&w=2000') center/cover no-repeat;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
         padding: 20px;
-        border-radius: 10px;
-        border-left: 5px solid #1f77b4;
-        color: #333333;
+        font-family: 'Segoe UI', sans-serif;
+    }
+    .privacy-box {
+        background-color: rgba(255,255,255,0.15);
+        backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 40px 30px;
+        width: 90%;
+        max-width: 800px;
+        border: 1px solid rgba(255,255,255,0.2);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+    .privacy-title {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .privacy-subtitle {
+        font-size: 1.3rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+    }
+    .robot-img {
+        width: 150px;
+        height: 150px;
+        margin: 20px 0;
+        filter: drop-shadow(0 0 20px #00d4ff);
+    }
+    .acepto-checkbox {
+        transform: scale(1.4);
+        margin: 25px 0;
     }
     </style>
     """, unsafe_allow_html=True)
-    
-    st.title("🔒 Aviso de Privacidad y Protección de Datos")
-    
-    st.markdown("""
-    <div class="privacy-box">
-    
-    ### POLÍTICA DE PRIVACIDAD Y PROTECCIÓN DE DATOS PERSONALES
-    
-    **Fecha de última actualización:** Enero 2024
-    
-    #### 1. RESPONSABLE DEL TRATAMIENTO
-    El responsable del tratamiento de sus datos personales es la institución educativa seleccionada.
-    
-    #### 2. DATOS QUE RECOPILAMOS
-    - Nombre completo
-    - Número de identificación (cédula)
-    - Información académica (notas, asignaturas, asistencia)
-    - Historial de consultas en el sistema
-    
-    #### 3. FINALIDAD DEL TRATAMIENTO
-    Sus datos serán utilizados para:
-    - Gestión académica y administrativa
-    - Generación de certificados de estudio
-    - Seguimiento del rendimiento académico
-    - Comunicación de información institucional
-    
-    #### 4. DERECHOS DEL TITULAR
-    Usted tiene derecho a:
-    - Conocer, actualizar y rectificar sus datos
-    - Solicitar prueba de la autorización
-    - Ser informado sobre el uso de sus datos
-    - Revocar la autorización
-    - Acceder gratuitamente a sus datos
-    
-    #### 5. MEDIDAS DE SEGURIDAD
-    Implementamos medidas técnicas y organizativas para proteger sus datos contra:
-    - Acceso no autorizado
-    - Pérdida o destrucción
-    - Uso indebido
-    
-    #### 6. TRANSFERENCIA DE DATOS
-    Sus datos NO serán compartidos con terceros sin su consentimiento expreso, 
-    excepto cuando sea requerido por ley.
-    
-    #### 7. CONSERVACIÓN DE DATOS
-    Los datos se conservarán mientras mantenga vínculo con la institución 
-    y por el tiempo adicional requerido por normativas educativas.
-    
-    #### 8. CONTACTO
-    Para ejercer sus derechos o consultas sobre esta política:
-    - Email: protecciondatos@colegio.edu.co
-    - Teléfono: (601) 555-0123
-    
-    ---
-    
-    **Base legal:** Ley 1581 de 2012 (Colombia) - Protección de Datos Personales
-    
+
+    st.markdown(f"""
+    <div class="privacy-container">
+        <h1 class="privacy-title">Sistema Escolar Interactivo</h1>
+        <p class="privacy-subtitle">Bienvenido al portal estudiantil digital</p>
+        
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" class="robot-img" alt="Robot asistente">
+        
+        <div class="privacy-box">
+            <h2>Política de Privacidad y Protección de Datos</h2>
+            <p style="text-align: justify; line-height: 1.8;">
+                Para poder usar el sistema necesitamos que aceptes nuestra política de tratamiento de datos personales, 
+                conforme a la <strong>Ley 1581 de 2012</strong> y el Decreto 1377 de 2013 de Colombia.
+                <br><br>
+                Tus datos (nombre, cédula, notas y consultas) serán usados únicamente para:
+                <ul style="text-align: left; margin: 20px 0;">
+                    <li>Gestión académica y generación de certificados</li>
+                    <li>Comunicación de información institucional</li>
+                    <li>Mejorar tu experiencia en el portal</li>
+                </ul>
+                <strong>No compartimos tus datos con terceros</strong> y puedes ejercer tus derechos 
+                (acceso, actualización, eliminación) en cualquier momento.
+            </p>
+            
+            <div style="margin-top: 30px;">
+                <label style="font-size: 1.2rem;">
+                    <input type="checkbox" id="acepto" class="acepto-checkbox" onclick="
+                        document.getElementById('btn-continuar').disabled = !this.checked;
+                        document.getElementById('btn-continuar').style.opacity = this.checked ? '1' : '0.5';
+                    ">
+                    <strong> He leído y acepto la política de privacidad</strong>
+                </label>
+            </div>
+            
+            <button id="btn-continuar" disabled style="
+                background: #00d4ff;
+                color: white;
+                padding: 15px 40px;
+                border: none;
+                border-radius: 50px;
+                font-size: 1.3rem;
+                font-weight: bold;
+                margin-top: 20px;
+                cursor: not-allowed;
+                opacity: 0.5;
+                transition: all 0.3s;
+                box-shadow: 0 8px 20px rgba(0,212,255,0.4);
+            " onclick="window.parent.location.reload()">
+                Continuar al Sistema
+            </button>
+        </div>
     </div>
     """, unsafe_allow_html=True)
-    
-    st.markdown("---")
-    
-    col1, col2, col3 = st.columns([1, 2, 1])
+
+    # Lógica del botón real de Streamlit (se activa cuando marcan el checkbox)
+    col1, col2, col3 = st.columns([1,2,1])
     with col2:
-        acepto = st.checkbox("✅ He leído y acepto la política de privacidad y tratamiento de datos personales")
-        
-        if acepto:
+        placeholder = st.empty()
+        if placeholder.checkbox("He leído y acepto la política de privacidad", key="acepto_real"):
             if st.button("Continuar al Sistema", type="primary", use_container_width=True):
                 st.session_state.privacy_accepted = True
                 st.rerun()
