@@ -657,10 +657,10 @@ Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aq
 # PÁGINA DE PRIVACIDAD
 # ============================================
 def mostrar_aviso_privacidad():
-    # Estilos CSS mejorados
+    # Estilos CSS optimizados (sin imágenes externas)
     st.markdown("""
     <style>
-    /* Fondo degradado más suave y profesional */
+    /* Fondo degradado profesional */
     .stApp {
         background: linear-gradient(135deg, #5e60ce 0%, #8f94fb 100%);
     }
@@ -681,6 +681,7 @@ def mostrar_aviso_privacidad():
         margin-bottom: 1rem !important;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        animation: fadeIn 1s ease-out;
     }
     
     /* Subtítulo */
@@ -703,7 +704,7 @@ def mostrar_aviso_privacidad():
         overflow: hidden;
     }
     
-    /* Efecto de línea superior en la tarjeta */
+    /* Línea superior en la tarjeta */
     .privacy-card::before {
         content: '';
         position: absolute;
@@ -799,9 +800,9 @@ def mostrar_aviso_privacidad():
         transform: none !important;
     }
     
-    /* Icono de privacidad */
+    /* Icono de privacidad (emoji) */
     .privacy-icon {
-        font-size: 3rem;
+        font-size: 3.5rem;
         text-align: center;
         margin-bottom: 1.5rem;
         color: #fff;
@@ -812,38 +813,34 @@ def mostrar_aviso_privacidad():
         from { opacity: 0; transform: translateY(-20px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    
-    .animate-title {
-        animation: fadeIn 1s ease-out;
-    }
     </style>
     """, unsafe_allow_html=True)
 
     # Contenedor principal
     st.markdown('<div class="privacy-container">', unsafe_allow_html=True)
 
-    # Título con icono
+    # Icono y título
     st.markdown('<div class="privacy-icon">🔒</div>', unsafe_allow_html=True)
-    st.markdown('<h1 class="privacy-title animate-title">Aviso de Privacidad</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="privacy-title">Aviso de Privacidad</h1>', unsafe_allow_html=True)
     st.markdown('<p class="privacy-subtitle">Protección de tus datos personales</p>', unsafe_allow_html=True)
 
     # Tarjeta de contenido
     st.markdown('<div class="privacy-card">', unsafe_allow_html=True)
 
-    # Texto principal con mejor formato
+    # Texto principal
     st.markdown("""
     <div class="privacy-text">
         <p style="font-weight: 600; font-size: 1.2rem; margin-bottom: 1.5rem; color: #2d3748;">
             🎯 <strong>PROPÓSITO DEL TRATAMIENTO</strong>
         </p>
-        Con el fin de brindarte un servicio educativo de calidad y cumplir con las normativas 
+        <p>Con el fin de brindarte un servicio educativo de calidad y cumplir con las normativas 
         vigentes, necesitamos que aceptes nuestra política de tratamiento de datos personales 
-        conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.
+        conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.</p>
         
         <p style="margin-top: 1.5rem; font-weight: 600; font-size: 1.2rem; color: #2d3748;">
             📌 <strong>DATOS QUE RECOPILAMOS</strong>
         </p>
-        Los datos personales que tratamos incluyen:
+        <p>Los datos personales que tratamos incluyen:</p>
         
         <ul class="privacy-list">
             <li>Nombre completo</li>
@@ -882,7 +879,7 @@ def mostrar_aviso_privacidad():
     </div>
     """, unsafe_allow_html=True)
 
-    # Checkbox y botón en columnas
+    # Checkbox y botón
     col1, col2, col3 = st.columns([0.5, 2, 0.5])
     
     with col2:
