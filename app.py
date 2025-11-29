@@ -916,7 +916,7 @@ def mostrar_chatbot():
         if st.button("Calendario", use_container_width=True):
             pregunta = "calendario académico"
             respuesta = procesar_pregunta(pregunta)
-            st.session_state.chat_history.append({"role": "user", "content": pregunta})
+            st.session_state.chat_history.append({"role": "user", "content": "Mostrar calendario"})
             st.session_state.chat_history.append({"role": "assistant", "content": respuesta})
             st.rerun()
 
@@ -924,7 +924,7 @@ def mostrar_chatbot():
         if st.button("Horarios", use_container_width=True):
             pregunta = "horarios"
             respuesta = procesar_pregunta(pregunta)
-            st.session_state.chat_history.append({"role": "user", "content": pregunta})
+            st.session_state.chat_history.append({"role": "user", "content": "Mostrar horarios"})
             st.session_state.chat_history.append({"role": "assistant", "content": respuesta})
             st.rerun()
 
@@ -932,7 +932,7 @@ def mostrar_chatbot():
         if st.button("Tutorías", use_container_width=True):
             pregunta = "tutoria refuerzo"
             respuesta = procesar_pregunta(pregunta)
-            st.session_state.chat_history.append({"role": "user", "content": pregunta})
+            st.session_state.chat_history.append({"role": "user", "content": "Información de tutorías"})
             st.session_state.chat_history.append({"role": "assistant", "content": respuesta})
             st.rerun()
 
@@ -940,31 +940,23 @@ def mostrar_chatbot():
         if st.button("Dashboard", use_container_width=True):
             pregunta = "dashboard resumen"
             respuesta = procesar_pregunta(pregunta)
-            st.session_state.chat_history.append({"role": "user", "content": pregunta})
+            st.session_state.chat_history.append({"role": "user", "content": "Mostrar mi dashboard"})
             st.session_state.chat_history.append({"role": "assistant", "content": respuesta})
             st.rerun()
 
-    # Campo de texto y botones
-    pregunta_usuario = st.text_input(
-        "Escribe tu pregunta aquí:",
-        key="chat_input",
-        placeholder="Ej: ¿Cuáles son mis notas?",
-        label_visibility="collapsed"
-    )
+    # === CHAT CON ENTER AUTOMÁTICO ===
+    pregunta = st.chat_input("Escribe tu mensaje aquí y presiona Enter para enviar")
 
-    col_enviar, col_limpiar = st.columns([5, 1])
-    with col_enviar:
-        if st.button("Enviar", type="primary", use_container_width=True):
-            if pregunta_usuario.strip():
-                respuesta = procesar_pregunta(pregunta_usuario)
-                st.session_state.chat_history.append({"role": "user", "content": pregunta_usuario})
-                st.session_state.chat_history.append({"role": "assistant", "content": respuesta})
-                st.rerun()
+    if pregunta:
+        respuesta = procesar_pregunta(pregunta)
+        st.session_state.chat_history.append({"role": "user", "content": pregunta})
+        st.session_state.chat_history.append({"role": "assistant", "content": respuesta})
+        st.rerun()
 
-    with col_limpiar:
-        if st.button("Limpiar", use_container_width=True):
-            st.session_state.chat_history = []
-            st.rerun()
+    # Botón limpiar conversación
+    if st.button("Limpiar conversación", use_container_width=True):
+        st.session_state.chat_history = []
+        st.rerun()
 
 def mostrar_notas():
     st.title("📊 Mis Notas y Calificaciones")
