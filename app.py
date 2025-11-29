@@ -700,7 +700,7 @@ def mostrar_aviso_privacidad():
     st.markdown('<p class="privacy-subtitle">Asistente Virtual del Colegio</p>', unsafe_allow_html=True)
     
     # Robot del mismo estilo que tu app
-    st.markdown("<div style='text-align:center; font-size:120px; margin:20px 0;'>Asistente Virtual</div>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align:center; font-size:120px; margin:20px 0;'>Asistente Virtual IRIS</div>", unsafe_allow_html=True)
 
     with st.container():
         st.markdown('<div class="privacy-card">', unsafe_allow_html=True)
@@ -886,7 +886,7 @@ def mostrar_dashboard_estudiante():
         
         menu = st.radio(
             "📌 Menú",
-            ["💬 Chat Bot", "📊 Mis Notas", "📜 Certificado", "📈 Dashboard", "🔒 Privacidad"]
+            ["💬 Chat Bot IRIS", "📊 Mis Notas", "📜 Certificado", "📈 Dashboard", "🔒 Privacidad"]
         )
         
         st.markdown("---")
@@ -909,7 +909,7 @@ def mostrar_dashboard_estudiante():
         mostrar_info_privacidad()
 
 def mostrar_chatbot():
-    st.title("Asistente Virtual Escolar")
+    st.title("Asistente Virtual IRIS")
     st.markdown("Pregúntame sobre notas, asistencias, certificados, calendario y más.")
 
     # Contenedor del historial del chat
