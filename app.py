@@ -658,112 +658,110 @@ Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aq
 def mostrar_aviso_privacidad():
     st.markdown("""
     <style>
-    .privacy-bg {
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%),
-                    url('https://images.unsplash.com/photo-1535378620166-273708d44e4c?q=80&w=2000') center/cover no-repeat;
-        z-index: -1;
+    body, .stApp {
+        background: #0e1117;
     }
-    .privacy-overlay {
+    .privacidad-fullscreen {
         position: fixed;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0,0,0,0.5);
-        backdrop-filter: blur(5px);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 20px;
+        z-index: 9999;
     }
-    .privacy-card {
-        background: rgba(255,255,255,0.95);
-        border-radius: 25px;
-        padding: 40px;
-        max-width: 750px;
+    .card-privacidad {
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 24px;
+        padding: 45px 40px;
         width: 100%;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        max-width: 720px;
+        box-shadow: 0 25px 60px rgba(0,0,0,0.5);
         text-align: center;
-        color: #1e3c72;
+        color: #1a1a1a;
     }
-    .robot {
-        width: 120px;
-        filter: drop-shadow(0 0 20px #00d4ff);
-        margin: 20px 0;
+    .titulo-principal {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: #667eea;
+        margin-bottom: 10px;
     }
-    .btn-aceptar {
-        background: linear-gradient(45deg, #00d4ff, #0099cc);
-        color: white;
-        padding: 15px 50px;
-        border: none;
-        border-radius: 50px;
-        font-size: 1.3rem;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 20px;
-        box-shadow: 0 10px 30px rgba(0,212,255,0.4);
-        transition: all 0.3s;
-    }
-    .btn-aceptar:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 40px rgba(0,212,255,0.6);
+    .robot-gigante {
+        width: 130px;
+        margin: 25px auto;
+        filter: drop-shadow(0 10px 20px rgba(102,126,234,0.4));
     }
     </style>
 
-    <div class="privacy-bg"></div>
-    <div class="privacy-overlay">
-        <div class="privacy-card">
-            <h1 style="color:#1e3c72; font-size:2.8rem;">Sistema Escolar Interactivo</h1>
-            <p style="font-size:1.3rem; color:#2c5282;">Portal estudiantil digital</p>
-            
-            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" class="robot" alt="Robot">
-            
-            <h2>Política de Privacidad</h2>
-            <div style="text-align:justify; line-height:1.8; font-size:1.1rem; color:#333;">
-                <p>Para usar el sistema necesitamos que aceptes nuestra política de tratamiento de datos personales conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.</p>
-                <p>Tus datos (nombre, cédula, notas y consultas) se usarán solo para:</p>
-                <ul style="text-align:left; display:inline-block;">
-                    <li>Gestión académica y certificados</li>
+    <div class="privacidad-fullscreen">
+        <div class="card-privacidad">
+            <h1 class="titulo-principal">Portal Estudiantil Digital</h1>
+            <p style="font-size:1.4rem; color:#555; margin-bottom:30px;">
+                Bienvenido al asistente virtual del colegio
+            </p>
+
+            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" class="robot-gigante">
+
+            <h2 style="color:#333; margin-top:30px;">Política de Privacidad y Protección de Datos</h2>
+            <div style="text-align:justify; line-height:1.8; font-size:1.1rem; color:#444; margin:25px 0;">
+                Para usar el sistema necesitamos que aceptes nuestra política de tratamiento de datos personales conforme a la <strong>Ley 1581 de 2012</strong> y el Decreto 1377 de 2013 de Colombia.<br><br>
+                Tus datos (nombre, cédula, notas y consultas) serán usados únicamente para:
+                <ul style="text-align:left; max-width:500px; margin:20px auto;">
+                    <li>Gestión académica y generación de certificados</li>
                     <li>Comunicación institucional</li>
-                    <li>Mejorar tu experiencia</li>
+                    <li>Mejorar tu experiencia en el portal</li>
                 </ul>
-                <p><strong>No compartimos tus datos con terceros</strong> y puedes ejercer tus derechos (acceso, corrección, eliminación) cuando quieras.</p>
+                <strong>No compartimos tus datos con terceros</strong> y puedes ejercer tus derechos ARCO en cualquier momento.
             </div>
-            
-            <div style="margin:30px 0;">
-                <label style="font-size:1.3rem; font-weight:bold; color:#1e3c72;">
-                    <input type="checkbox" id="acepto" style="transform:scale(1.5); margin-right:15px;">
-                    He leído y acepto la política de privacidad
+
+            <div style="margin:40px 0;">
+                <label style="font-size:1.4rem; font-weight:bold;">
+                    <input type="checkbox" id="checkPrivacidad" style="transform:scale(1.7); margin-right:15px; accent-color:#667eea;">
+                    <strong>He leído y acepto la política de privacidad</strong>
                 </label>
             </div>
-            
-            <button id="btn-continuar" class="btn-aceptar" disabled>
-                Continuar al Sistema
+
+            <button id="btnEntrar" disabled style="
+                background: linear-gradient(45deg, #667eea, #764ba2);
+                color: white;
+                border: none;
+                padding: 16px 50px;
+                border-radius: 50px;
+                font-size: 1.4rem;
+                font-weight: bold;
+                cursor: not-allowed;
+                opacity: 0.6;
+                box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+            ">
+                Entrar al Sistema
             </button>
         </div>
     </div>
 
     <script>
-    const checkbox = document.getElementById('acepto');
-    const btn = document.getElementById('btn-continuar');
-    checkbox.addEventListener('change', function() {
-        btn.disabled = !this.checked;
-        btn.style.opacity = this.checked ? '1' : '0.6';
-        btn.style.cursor = this.checked ? 'pointer' : 'not-allowed';
-    });
-    btn.addEventListener('click', function() {
-        if (!btn.disabled) {
-            window.location.href = window.location.href;  // fuerza rerun
+    const check = document.getElementById('checkPrivacidad');
+    const btn = document.getElementById('btnEntrar');
+    check.addEventListener('change', function() {
+        if(this.checked) {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.style.cursor = 'pointer';
+            btn.onclick = function() { location.reload(); }
+        } else {
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+            btn.style.cursor = 'not-allowed';
+            btn.onclick = null;
         }
     });
-    </script>
+ </script>
     """, unsafe_allow_html=True)
 
-    # El botón real de Streamlit (invisible, solo para activar)
-    if st.checkbox("Acepto", key="privacy_check", label_visibility="hidden"):
-        if st.button("Entrar", key="enter_btn", type="primary"):
-            st.session_state.privacy_accepted = True
-            st.rerun()
-
+    # Botón invisible de Streamlit que hace la magia real
+    if st.checkbox("", key="acepto_privacidad_oculto"):
+        st.session_state.privacy_accepted = True
+        st.rerun()
 # ============================================
 # PÁGINA DE LOGIN
 # ============================================
