@@ -658,81 +658,61 @@ Escribe tu pregunta de nuevo o elige uno de los botones rápidos 👆 ¡Estoy aq
 def mostrar_aviso_privacidad():
     st.markdown("""
     <style>
-    body, .stApp {
-        background: #0e1117;
-    }
-    .privacidad-fullscreen {
+    body, .stApp {background: #000 !important;}
+    .fondo-privacidad {
         position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
+        top: 0; left: 0; width: 100%; height: 100%;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px;
         z-index: 9999;
     }
-    .card-privacidad {
-        background: rgba(255, 255, 255, 0.98);
-        border-radius: 24px;
-        padding: 45px 40px;
-        width: 100%;
+    .tarjeta {
+        background: white;
+        border-radius: 28px;
+        padding: 50px 40px;
+        width: 90%;
         max-width: 720px;
-        box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+        box-shadow: 0 30px 80px rgba(0,0,0,0.6);
         text-align: center;
-        color: #1a1a1a;
     }
-    .titulo-principal {
-        font-size: 2.8rem;
-        font-weight: 800;
-        color: #667eea;
-        margin-bottom: 10px;
-    }
-    .robot-gigante {
-        width: 130px;
-        margin: 25px auto;
-        filter: drop-shadow(0 10px 20px rgba(102,126,234,0.4));
+    .robot {
+        width: 140px;
+        margin: 20px 0 30px 0;
     }
     </style>
 
-    <div class="privacidad-fullscreen">
-        <div class="card-privacidad">
-            <h1 class="titulo-principal">Portal Estudiantil Digital</h1>
-            <p style="font-size:1.4rem; color:#555; margin-bottom:30px;">
-                Bienvenido al asistente virtual del colegio
+    <div class="fondo-privacidad">
+        <div class="tarjeta">
+            <h1 style="color:#667eea; font-size:3rem; font-weight:900; margin:0;">
+                Portal Estudiantil
+            </h1>
+            <p style="color:#555; font-size:1.4rem; margin:10px 0 30px;">
+                Asistente Virtual Escolar
             </p>
 
-            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" class="robot-gigante">
+            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" class="robot">
 
-            <h2 style="color:#333; margin-top:30px;">Política de Privacidad y Protección de Datos</h2>
-            <div style="text-align:justify; line-height:1.8; font-size:1.1rem; color:#444; margin:25px 0;">
-                Para usar el sistema necesitamos que aceptes nuestra política de tratamiento de datos personales conforme a la <strong>Ley 1581 de 2012</strong> y el Decreto 1377 de 2013 de Colombia.<br><br>
-                Tus datos (nombre, cédula, notas y consultas) serán usados únicamente para:
-                <ul style="text-align:left; max-width:500px; margin:20px auto;">
-                    <li>Gestión académica y generación de certificados</li>
-                    <li>Comunicación institucional</li>
-                    <li>Mejorar tu experiencia en el portal</li>
-                </ul>
-                <strong>No compartimos tus datos con terceros</strong> y puedes ejercer tus derechos ARCO en cualquier momento.
+            <h2 style="color:#333; margin:30px 0 20px;">Política de Privacidad</h2>
+            <div style="text-align:justify; line-height:1.8; color:#444; font-size:1.1rem;">
+                Para usar el sistema necesitamos que aceptes nuestra política de tratamiento de datos conforme a la <strong>Ley 1581 de 2012</strong> de Colombia.<br><br>
+                Tus datos solo se usarán para gestión académica, certificados y comunicación institucional. 
+                <strong>No los compartimos con terceros</strong>.
             </div>
 
-            <div style="margin:40px 0;">
-                <label style="font-size:1.4rem; font-weight:bold;">
-                    <input type="checkbox" id="checkPrivacidad" style="transform:scale(1.7); margin-right:15px; accent-color:#667eea;">
-                    <strong>He leído y acepto la política de privacidad</strong>
+            <div style="margin:50px 0 40px;">
+                <label style="font-size:1.5rem; font-weight:bold; cursor:pointer;">
+                    <input type="checkbox" id="aceptoCheck" style="transform:scale(2); margin-right:20px; accent-color:#667eea;">
+                    <span style="color:#333;">He leído y acepto la política de privacidad</span>
                 </label>
             </div>
 
             <button id="btnEntrar" disabled style="
                 background: linear-gradient(45deg, #667eea, #764ba2);
-                color: white;
-                border: none;
-                padding: 16px 50px;
-                border-radius: 50px;
-                font-size: 1.4rem;
-                font-weight: bold;
-                cursor: not-allowed;
-                opacity: 0.6;
-                box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+                color:white; border:none; padding:18px 60px;
+                border-radius:50px; font-size:1.4rem; font-weight:bold;
+                cursor:not-allowed; opacity:0.5; box-shadow:0 10px 30px rgba(102,126,234,0.4);
             ">
                 Entrar al Sistema
             </button>
@@ -740,26 +720,26 @@ def mostrar_aviso_privacidad():
     </div>
 
     <script>
-    const check = document.getElementById('checkPrivacidad');
-    const btn = document.getElementById('btnEntrar');
-    check.addEventListener('change', function() {
+    document.getElementById('aceptoCheck').addEventListener('change', function() {
+        const btn = document.getElementById('btnEntrar');
         if(this.checked) {
             btn.disabled = false;
             btn.style.opacity = '1';
             btn.style.cursor = 'pointer';
-            btn.onclick = function() { location.reload(); }
+            btn.onclick = () => location.href = '?aceptado=1';
         } else {
             btn.disabled = true;
-            btn.style.opacity = '0.6';
+            btn.style.opacity = '0.5';
             btn.style.cursor = 'not-allowed';
             btn.onclick = null;
         }
     });
- </script>
+    </script>
     """, unsafe_allow_html=True)
 
-    # Botón invisible de Streamlit que hace la magia real
-    if st.checkbox("", key="acepto_privacidad_oculto"):
+    # MAGIA: detectar si el usuario ya aceptó desde la URL
+    query_params = st.query_params
+    if query_params.get("aceptado") == ["1"]:
         st.session_state.privacy_accepted = True
         st.rerun()
 # ============================================
